@@ -14,51 +14,51 @@ export function HeroSection() {
 
       {/* ── Decorative blobs ── */}
       <div
-        className="absolute -top-24 -right-24 w-96 h-96 blob pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(194,119,62,0.18) 0%, transparent 70%)' }}
+        className="hidden md:block absolute -top-24 -right-24 w-96 h-96 blob pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(184,117,58,0.18) 0%, transparent 70%)' }}
       />
       <div
-        className="absolute -bottom-32 -left-32 w-[28rem] h-[28rem] blob pointer-events-none"
+        className="hidden md:block absolute -bottom-32 -left-32 w-[28rem] h-[28rem] blob pointer-events-none"
         style={{
           background: 'radial-gradient(circle, rgba(140,158,148,0.15) 0%, transparent 70%)',
           animationDelay: '-4s',
         }}
       />
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] pointer-events-none opacity-30"
+        className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] pointer-events-none opacity-30"
         style={{
-          background: 'radial-gradient(ellipse, rgba(194,119,62,0.08) 0%, transparent 60%)',
+          background: 'radial-gradient(ellipse, rgba(184,117,58,0.08) 0%, transparent 60%)',
         }}
       />
 
-      {/* ── Floating geometric accents ── */}
+      {/* ── Floating geometric accents — desktop only ── */}
       <motion.div
-        className="absolute top-20 right-[10%] w-8 h-8 rounded-full border-2 border-[var(--terracotta)] opacity-40"
+        className="hidden md:block absolute top-20 right-[10%] w-8 h-8 rounded-full border-2 border-[var(--terracotta)] opacity-40"
         animate={{ y: [0, -12, 0], rotate: [0, 90, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute bottom-32 right-[20%] w-4 h-4 rounded-sm bg-[var(--sage)] opacity-50"
+        className="hidden md:block absolute bottom-32 right-[20%] w-4 h-4 rounded-sm bg-[var(--sage)] opacity-50"
         animate={{ y: [0, 10, 0], rotate: [0, -45, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
       />
       <motion.div
-        className="absolute top-1/3 left-[5%] w-5 h-5 rounded-full bg-[var(--terracotta)] opacity-25"
+        className="hidden md:block absolute top-1/3 left-[5%] w-5 h-5 rounded-full bg-[var(--terracotta)] opacity-25"
         animate={{ y: [0, -8, 0], x: [0, 6, 0] }}
         transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
       />
       <motion.div
-        className="absolute bottom-24 left-[15%] w-6 h-6 border-2 border-[var(--sage)] opacity-35 rotate-45"
+        className="hidden md:block absolute bottom-24 left-[15%] w-6 h-6 border-2 border-[var(--sage)] opacity-35 rotate-45"
         animate={{ y: [0, 8, 0], rotate: [45, 90, 45] }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
       />
 
       {/* ── Main content ── */}
-      <div className="container-site relative z-10 w-full py-24 lg:py-0">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-screen lg:min-h-0 lg:py-32">
+      <div className="container-site relative z-10 w-full">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center pt-28 pb-14 lg:py-36">
 
           {/* Left: Text */}
-          <div className="flex flex-col gap-6 order-2 lg:order-1">
+          <div className="flex flex-col gap-5 order-1">
 
             {/* Badge */}
             <motion.div
@@ -103,7 +103,7 @@ export function HeroSection() {
 
             {/* Body */}
             <motion.p
-              className="text-[var(--stone)] text-lg leading-relaxed max-w-lg"
+              className="text-[var(--stone)] text-base lg:text-lg leading-relaxed max-w-lg"
               style={{ fontFamily: 'var(--font-ui)' }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -144,7 +144,7 @@ export function HeroSection() {
 
             {/* Quick stats row */}
             <motion.div
-              className="flex flex-wrap gap-6 pt-2 border-t border-[var(--border)]"
+              className="flex flex-wrap gap-5 pt-2 border-t border-[var(--border)]"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.6 }}
@@ -163,13 +163,13 @@ export function HeroSection() {
           </div>
 
           {/* Right: Photo */}
-          <div className="relative flex justify-center items-center order-1 lg:order-2">
+          <div className="relative flex justify-center items-center order-2">
 
             {/* Spinning ring */}
             <motion.div
-              className="absolute w-80 h-80 lg:w-[26rem] lg:h-[26rem] rounded-full spin-slow pointer-events-none"
+              className="hidden md:block absolute w-80 h-80 lg:w-[26rem] lg:h-[26rem] rounded-full spin-slow pointer-events-none"
               style={{
-                border: '2px dashed rgba(194,119,62,0.25)',
+                border: '2px dashed rgba(184,117,58,0.25)',
               }}
             />
 
@@ -177,7 +177,7 @@ export function HeroSection() {
             <motion.div
               className="absolute w-64 h-64 lg:w-[22rem] lg:h-[22rem] rounded-full pointer-events-none"
               style={{
-                background: 'radial-gradient(circle, rgba(194,119,62,0.12) 0%, transparent 70%)',
+                background: 'radial-gradient(circle, rgba(184,117,58,0.12) 0%, transparent 70%)',
               }}
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -187,8 +187,8 @@ export function HeroSection() {
             <motion.div
               className="relative z-10 rounded-full overflow-hidden glow-terracotta"
               style={{
-                width: 'clamp(240px, 40vw, 360px)',
-                height: 'clamp(240px, 40vw, 360px)',
+                width: 'clamp(180px, 55vw, 360px)',
+                height: 'clamp(180px, 55vw, 360px)',
                 border: '4px solid var(--terracotta)',
               }}
               initial={{ opacity: 0, scale: 0.85 }}
@@ -206,7 +206,7 @@ export function HeroSection() {
 
             {/* Floating badge — surgeries */}
             <motion.div
-              className="absolute -bottom-2 -left-4 lg:-left-8 glass-card rounded-2xl px-4 py-3 z-20"
+              className="hidden lg:block absolute -bottom-2 -left-4 lg:-left-8 glass-card rounded-2xl px-4 py-3 z-20"
               initial={{ opacity: 0, x: -20, y: 20 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ duration: 0.7, delay: 0.8, type: 'spring', stiffness: 150 }}
@@ -218,7 +218,7 @@ export function HeroSection() {
 
             {/* Floating badge — fellowship */}
             <motion.div
-              className="absolute top-4 -right-4 lg:-right-8 glass-card rounded-2xl px-4 py-3 z-20"
+              className="hidden lg:block absolute top-4 -right-4 lg:-right-8 glass-card rounded-2xl px-4 py-3 z-20"
               initial={{ opacity: 0, x: 20, y: -20 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ duration: 0.7, delay: 1.0, type: 'spring', stiffness: 150 }}
@@ -229,7 +229,7 @@ export function HeroSection() {
             </motion.div>
 
             {/* Decorative dots cluster */}
-            <div className="absolute top-8 left-4 grid grid-cols-4 gap-1.5 opacity-40 pointer-events-none">
+            <div className="hidden lg:grid absolute top-8 left-4 grid-cols-4 gap-1.5 opacity-40 pointer-events-none">
               {Array.from({ length: 16 }).map((_, i) => (
                 <div key={i} className="w-1.5 h-1.5 rounded-full bg-[var(--terracotta)]" />
               ))}

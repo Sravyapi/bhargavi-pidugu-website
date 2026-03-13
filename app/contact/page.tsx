@@ -6,7 +6,13 @@ import { CONTACT } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Get in touch with Dr. Bhargavi Pidugu — paediatric ophthalmologist at LV Prasad Eye Institute, Hyderabad.',
+  description: 'Contact Dr. Bhargavi Pidugu, paediatric ophthalmologist at LV Prasad Eye Institute, Banjara Hills, Hyderabad. Send a message for appointments, second opinions, or general enquiries.',
+  alternates: { canonical: 'https://drbhargavipidugu.com/contact' },
+  openGraph: {
+    title: 'Contact Dr. Bhargavi Pidugu | Paediatric Ophthalmologist, Hyderabad',
+    description: 'Get in touch with Dr. Bhargavi Pidugu at LV Prasad Eye Institute, Hyderabad for paediatric eye care enquiries and appointments.',
+    url: 'https://drbhargavipidugu.com/contact',
+  },
 }
 
 export default function ContactPage() {

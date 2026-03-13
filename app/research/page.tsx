@@ -5,24 +5,83 @@ import { DownloadCVButton } from '@/components/about/DownloadCVButton'
 import { ExternalLink } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Research',
-  description: 'Publications and conference presentations by Dr. Bhargavi Pidugu in paediatric ophthalmology and strabismus.',
+  title: 'Research & Academic Contributions',
+  description: 'Conference presentations and peer-reviewed research by Dr. Bhargavi Pidugu — oral presenter at APAO Hong Kong 2026, contributor to POSN, and published author in paediatric ophthalmology.',
+  alternates: { canonical: 'https://drbhargavipidugu.com/research' },
+  openGraph: {
+    title: 'Research & Academic Work | Dr. Bhargavi Pidugu',
+    description: 'Oral presenter at APAO Hong Kong 2026. Publications and conference contributions in paediatric ophthalmology, strabismus, and neuro-ophthalmology.',
+    url: 'https://drbhargavipidugu.com/research',
+  },
 }
 
 const INTERNATIONAL = [
-  { year: '2026', conf: 'APAO Hong Kong 2026', title: 'Oral Presentation 1 — Asia-Pacific Academy of Ophthalmology Annual Congress', city: 'Hong Kong' },
-  { year: '2026', conf: 'APAO Hong Kong 2026', title: 'Oral Presentation 2 — Asia-Pacific Academy of Ophthalmology Annual Congress', city: 'Hong Kong' },
-  { year: '2025', conf: 'APAO New Delhi 2025', title: 'Oral Presentation — Asia-Pacific Academy of Ophthalmology', city: 'New Delhi' },
+  {
+    year: '2026',
+    conf: '41st APAO Congress, Hong Kong',
+    title: 'Oral: Unveiling Cerebrotendinous Xanthomatosis Through the Eye – Clinical and Genetic Insights',
+    city: 'Hong Kong',
+  },
+  {
+    year: '2026',
+    conf: '41st APAO Congress, Hong Kong',
+    title: 'Oral: Genetic Landscape of Ectopia Lentis Over Three Years in a Single Tertiary Eye Care Centre',
+    city: 'Hong Kong',
+  },
+  {
+    year: '2025',
+    conf: '40th APAO Congress & 83rd AIOS Annual Conference, New Delhi',
+    title: 'E-Poster: A Rare Case of Cyclic Esotropia – Presentation and Management',
+    city: 'New Delhi',
+  },
+  {
+    year: '2025',
+    conf: '40th APAO Congress & 83rd AIOS Annual Conference, New Delhi',
+    title: 'Poster: Unilateral Acquired Brown\'s Syndrome of Inflammatory Origin – Presentation and Management',
+    city: 'New Delhi',
+  },
 ]
 
 const NATIONAL = [
-  { year: '2025', conf: 'POSN 2025', title: 'Presentation — Paediatric Ophthalmology Society of India Annual Conference', city: 'India' },
-  { year: '2024', conf: 'DOS 2024', title: 'Presentation — Delhi Ophthalmological Society', city: 'Delhi' },
-  { year: '2024', conf: 'AIOC 2024', title: 'Presentation — All India Ophthalmological Conference', city: 'India' },
+  {
+    year: '2025',
+    conf: '7th POSN, Dr. Shroff\'s Charity Eye Hospital, New Delhi',
+    title: 'Grand Rounds: Genetic Landscape of Ectopia Lentis Over Two Years in a Single Tertiary Eye Care Centre',
+    city: 'New Delhi',
+  },
+  {
+    year: '2024',
+    conf: '6th Paediatric Ophthalmology & Strabismus Network (POSN), Bengaluru',
+    title: 'Oral: Achiasma Revealed by Congenital Nystagmus and MRI Imaging',
+    city: 'Bengaluru',
+  },
+  {
+    year: '2024',
+    conf: '6th Paediatric Ophthalmology & Strabismus Network (POSN), Bengaluru',
+    title: 'Oral: Oculomotor Abnormalities and Surgical Outcome of Acquired Esotropia in Type 3 Gaucher\'s Disease',
+    city: 'Bengaluru',
+  },
 ]
 
 const STATE = [
-  { year: '2023', conf: 'TOS 2023', title: 'Presentation — Telangana Ophthalmological Society', city: 'Hyderabad' },
+  {
+    year: '2024',
+    conf: '9th TOSCON — Telangana Ophthalmological Society Annual Conference',
+    title: 'E-Poster: A Rare Case of Strabismus – Cyclic Esotropia – Presentation and Management',
+    city: 'Hyderabad',
+  },
+  {
+    year: '2018',
+    conf: 'Telangana State Ophthalmology Conference',
+    title: 'Award Paper: Incidence of Work-Disabling Decreased Vision with Posterior Capsular Opacity Following SICS with Rigid PMMA IOL',
+    city: 'Telangana',
+  },
+  {
+    year: '2018',
+    conf: 'State Ophthalmology Conference',
+    title: 'Poster: Case Report of Atypical Retinitis Pigmentosa',
+    city: 'Telangana',
+  },
 ]
 
 export default function ResearchPage() {
@@ -59,20 +118,22 @@ export default function ResearchPage() {
                     className="font-semibold mb-1 leading-snug"
                     style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal)', fontSize: '1rem' }}
                   >
-                    Research publication details available upon request
+                    Incidence of work-disabling decreased vision with posterior capsular opacity (PCO) following small-incision cataract surgery with rigid PMMA IOL
                   </h3>
-                  <p className="text-sm meta-text">
-                    For DOI links and journal details, please contact Dr. Bhargavi directly.
+                  <p className="text-sm meta-text mb-1">
+                    Kumar GRB, Manasa B, <strong>Bhargavi P.</strong> <em>Journal of Evolution of Medical and Dental Sciences.</em> 2018;7(42):4580–4583.
                   </p>
                 </div>
-                <span className="badge-sage shrink-0">In press / Published</span>
+                <span className="badge-sage shrink-0">Published 2018</span>
               </div>
               <a
-                href="/contact"
+                href="https://doi.org/10.14260/jemds/2018/1021"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-sm font-medium"
                 style={{ fontFamily: 'var(--font-ui)', color: 'var(--terracotta)' }}
               >
-                Request publication list <ExternalLink size={14} />
+                DOI: 10.14260/jemds/2018/1021 <ExternalLink size={14} />
               </a>
             </div>
           </AnimatedSection>

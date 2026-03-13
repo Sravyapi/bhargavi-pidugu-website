@@ -15,7 +15,7 @@ export function AboutTeaser() {
 
       {/* Decorative large terracotta numeral */}
       <div
-        className="absolute right-0 top-0 text-[20rem] font-bold leading-none pointer-events-none select-none opacity-[0.03]"
+        className="hidden md:block absolute right-0 top-0 text-[20rem] font-bold leading-none pointer-events-none select-none opacity-[0.03]"
         style={{ fontFamily: 'var(--font-display)', color: 'var(--terracotta)' }}
         aria-hidden
       >
@@ -23,7 +23,7 @@ export function AboutTeaser() {
       </div>
 
       <div className="container-site">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
 
           {/* LEFT: Photo with decorative offset frame */}
           <AnimatedSection direction="left" delay={0}>
@@ -31,10 +31,10 @@ export function AboutTeaser() {
 
               {/* Offset decorative box */}
               <div
-                className="absolute -bottom-6 -left-6 w-64 h-64 lg:w-80 lg:h-80 rounded-3xl"
+                className="hidden md:block absolute -bottom-6 -left-6 w-64 h-64 lg:w-80 lg:h-80 rounded-3xl"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(194,119,62,0.12), rgba(140,158,148,0.12))',
-                  border: '2px solid rgba(194,119,62,0.15)',
+                  background: 'linear-gradient(135deg, rgba(184,117,58,0.12), rgba(140,158,148,0.12))',
+                  border: '2px solid rgba(184,117,58,0.15)',
                 }}
               />
 
@@ -42,9 +42,9 @@ export function AboutTeaser() {
               <div
                 className="relative z-10 rounded-3xl overflow-hidden"
                 style={{
-                  width: 'clamp(260px, 38vw, 340px)',
-                  height: 'clamp(300px, 44vw, 400px)',
-                  boxShadow: '0 24px 60px rgba(44,44,44,0.15), 0 0 0 1px rgba(194,119,62,0.1)',
+                  width: 'clamp(200px, 70vw, 340px)',
+                  height: 'clamp(240px, 80vw, 400px)',
+                  boxShadow: '0 24px 60px rgba(44,44,44,0.15), 0 0 0 1px rgba(184,117,58,0.1)',
                 }}
               >
                 <Image
@@ -55,15 +55,15 @@ export function AboutTeaser() {
                 />
               </div>
 
-              {/* Credential pills — floating */}
-              <div className="absolute -right-4 lg:-right-10 top-8 flex flex-col gap-2 z-20">
+              {/* Credential pills — floating, desktop only */}
+              <div className="hidden lg:flex absolute -right-4 lg:-right-10 top-8 flex-col gap-2 z-20">
                 {credentials.map(({ icon: Icon, text }, i) => (
                   <AnimatedSection key={i} direction="right" delay={0.3 + i * 0.12}>
                     <div
                       className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold shadow-md whitespace-nowrap"
                       style={{
                         background: 'var(--cream)',
-                        border: '1px solid rgba(194,119,62,0.2)',
+                        border: '1px solid rgba(184,117,58,0.2)',
                         color: 'var(--charcoal)',
                         fontFamily: 'var(--font-ui)',
                       }}
@@ -76,7 +76,7 @@ export function AboutTeaser() {
               </div>
 
               {/* Dot pattern */}
-              <div className="absolute -bottom-2 right-4 grid grid-cols-5 gap-1.5 opacity-30 pointer-events-none">
+              <div className="hidden md:grid absolute -bottom-2 right-4 grid-cols-5 gap-1.5 opacity-30 pointer-events-none">
                 {Array.from({ length: 25 }).map((_, i) => (
                   <div key={i} className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--terracotta)' }} />
                 ))}

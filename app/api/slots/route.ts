@@ -6,7 +6,7 @@ import { getAndUpdateAccessToken } from '@/lib/google/token-helper'
 import type { TimeSlot } from '@/lib/types'
 import { startOfDay, endOfDay } from 'date-fns'
 import { fromZonedTime } from 'date-fns-tz'
-import { IST_TIMEZONE, DEFAULT_DURATION_MINUTES, DEFAULT_BUFFER_MINUTES } from '@/lib/constants'
+import { IST_TIMEZONE, APPOINTMENT_DEFAULTS } from '@/lib/constants'
 
 export async function GET(request: NextRequest) {
   try {
@@ -73,8 +73,8 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ success: true, data: { slots: [] } })
     }
 
-    const durationMinutes = parseInt(content.appointment_duration_minutes || String(DEFAULT_DURATION_MINUTES))
-    const bufferMinutes = parseInt(content.buffer_minutes || String(DEFAULT_BUFFER_MINUTES))
+    const durationMinutes = parseInt(content.appointment_duration_minutes || String(APPOINTMENT_DEFAULTS.DURATION_MINUTES))
+    const bufferMinutes = parseInt(content.buffer_minutes || String(APPOINTMENT_DEFAULTS.BUFFER_MINUTES))
 
     let slots: TimeSlot[] = generateSlots(date, schedule, durationMinutes, bufferMinutes)
 

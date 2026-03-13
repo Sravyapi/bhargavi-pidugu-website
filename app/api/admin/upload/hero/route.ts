@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
 import { requireAuth, unauthorizedResponse } from '@/lib/auth-utils'
-import { MAX_IMAGE_FILE_SIZE_BYTES } from '@/lib/constants'
+import { FILE_UPLOAD } from '@/lib/constants'
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
     if (!file) return NextResponse.json({ success: false, error: 'No file provided.' }, { status: 400 })
     if (!file.type.startsWith('image/')) return NextResponse.json({ success: false, error: 'File must be an image.' }, { status: 400 })
-    if (file.size > MAX_IMAGE_FILE_SIZE_BYTES) return NextResponse.json({ success: false, error: 'File must be under 5MB.' }, { status: 400 })
+    if (file.size > FILE_UPLOAD.GALLERY_MAX_SIZE_BYTES) return NextResponse.json({ success: false, error: 'File must be under 5MB.' }, { status: 400 })
 
     const supabase = await createAdminClient()
     const buffer = await file.arrayBuffer()

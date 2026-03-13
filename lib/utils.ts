@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { format, formatDistanceToNow } from 'date-fns'
+import { READING } from '@/lib/constants'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -23,8 +24,7 @@ export function timeAgo(date: string | Date): string {
 }
 
 export function estimateReadingTime(body: string): number {
-  const wordsPerMinute = 200
   const wordCount = body.trim().split(/\s+/).length
-  return Math.max(1, Math.ceil(wordCount / wordsPerMinute))
+  return Math.max(1, Math.ceil(wordCount / READING.WORDS_PER_MINUTE))
 }
 

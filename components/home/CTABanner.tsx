@@ -10,7 +10,7 @@ export function CTABanner() {
     <section
       className="relative py-28 lg:py-36 overflow-hidden gradient-animate"
       style={{
-        background: 'linear-gradient(135deg, var(--terracotta) 0%, #C2773E 30%, var(--terracotta-dark) 60%, #6B3020 100%)',
+        background: 'linear-gradient(135deg, var(--terracotta) 0%, #B8753A 30%, var(--terracotta-dark) 60%, #6B3020 100%)',
         backgroundSize: '300% 300%',
       }}
     >
@@ -23,32 +23,32 @@ export function CTABanner() {
         }}
       />
 
-      {/* Floating blobs */}
+      {/* Floating blobs — desktop only */}
       <div
-        className="absolute -top-20 -left-20 w-72 h-72 blob pointer-events-none opacity-20"
+        className="hidden md:block absolute -top-20 -left-20 w-72 h-72 blob pointer-events-none opacity-20"
         style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)' }}
       />
       <div
-        className="absolute -bottom-20 -right-20 w-96 h-96 blob pointer-events-none opacity-15"
+        className="hidden md:block absolute -bottom-20 -right-20 w-96 h-96 blob pointer-events-none opacity-15"
         style={{
           background: 'radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%)',
           animationDelay: '-5s',
         }}
       />
 
-      {/* Floating geometric shapes */}
+      {/* Floating geometric shapes — desktop only */}
       <motion.div
-        className="absolute top-12 right-[15%] w-16 h-16 rounded-full border-2 border-white/20"
+        className="hidden md:block absolute top-12 right-[15%] w-16 h-16 rounded-full border-2 border-white/20"
         animate={{ y: [0, -16, 0], rotate: [0, 180, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute bottom-16 left-[10%] w-10 h-10 border-2 border-white/15 rotate-45"
+        className="hidden md:block absolute bottom-16 left-[10%] w-10 h-10 border-2 border-white/15 rotate-45"
         animate={{ y: [0, 12, 0], rotate: [45, 90, 45] }}
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
       />
       <motion.div
-        className="absolute top-1/2 left-[5%] w-6 h-6 rounded-full bg-white/10"
+        className="hidden md:block absolute top-1/2 left-[5%] w-6 h-6 rounded-full bg-white/10"
         animate={{ y: [0, -10, 0], x: [0, 8, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
       />
@@ -91,7 +91,7 @@ export function CTABanner() {
         </AnimatedSection>
 
         <AnimatedSection direction="up" delay={0.3}>
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
             <Link
               href="/book"
               className="inline-flex items-center gap-2.5 px-7 py-4 rounded-xl font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5 group"
@@ -118,7 +118,7 @@ export function CTABanner() {
 
         {/* Trust markers */}
         <AnimatedSection delay={0.45} className="mt-14">
-          <div className="flex flex-wrap justify-center gap-6 lg:gap-10">
+          <div className="flex flex-wrap justify-center gap-3 lg:gap-8">
             {[
               'Fellowship-trained at LVPEI',
               'Online consultations available',

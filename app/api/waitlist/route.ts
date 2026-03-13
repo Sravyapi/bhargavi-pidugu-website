@@ -3,6 +3,7 @@ import { createAdminClient } from '@/lib/supabase/server'
 import { WaitlistSchema } from '@/lib/validations'
 import { getResend, FROM_EMAIL, ADMIN_EMAIL } from '@/lib/email/resend'
 import { waitlistConfirmation } from '@/lib/email/templates/waitlist'
+import { requireAuth, UnauthorizedError, unauthorizedResponse } from '@/lib/auth-utils'
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,6 +18,21 @@ export async function POST(request: NextRequest) {
 
     const { name, email } = result.data
     const supabase = await createAdminClient()
+
+    // Rate limit: max 3 attempts from same email per hour
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
+    const { data: existing } = await supabase
+      .from('waitlist')
+      .select('created_at')
+      .eq('email', email)
+      .gte('created_at', oneHourAgo)
+      .limit(3)
+    if ((existing?.length ?? 0) >= 3) {
+      return NextResponse.json(
+        { success: false, error: 'Too many requests. Please try again later.' },
+        { status: 429 }
+      )
+    }
 
     const { error } = await supabase
       .from('waitlist')
@@ -50,11 +66,13 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const authHeader = request.headers.get('Authorization')
-    if (authHeader !== `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`) {
-      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 })
+    try {
+      await requireAuth()
+    } catch (e) {
+      if (e instanceof UnauthorizedError) return unauthorizedResponse()
+      throw e
     }
 
     const supabase = await createAdminClient()

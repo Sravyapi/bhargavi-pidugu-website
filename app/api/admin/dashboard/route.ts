@@ -1,17 +1,21 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
-import { requireAdmin } from '@/lib/auth'
+import { requireAuth, UnauthorizedError, unauthorizedResponse } from '@/lib/auth-utils'
 import { startOfDay, endOfDay, startOfWeek, endOfWeek, subDays } from 'date-fns'
 import { fromZonedTime } from 'date-fns-tz'
+import { IST_TIMEZONE as IST } from '@/lib/constants'
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const { user, errorResponse } = await requireAdmin()
-    if (errorResponse) return errorResponse
+    try {
+      await requireAuth()
+    } catch (e) {
+      if (e instanceof UnauthorizedError) return unauthorizedResponse()
+      throw e
+    }
 
     const supabase = await createAdminClient()
     const now = new Date()
-    const IST = 'Asia/Kolkata'
 
     const todayStart = fromZonedTime(startOfDay(now), IST).toISOString()
     const todayEnd = fromZonedTime(endOfDay(now), IST).toISOString()

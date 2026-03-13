@@ -160,7 +160,7 @@ export default async function AdminDashboard() {
                   <span
                     className="text-xs px-2 py-0.5 rounded-full"
                     style={{
-                      background: apt.status === 'confirmed' ? 'rgba(140,158,148,0.2)' : apt.status === 'cancelled' ? 'rgba(194,119,62,0.15)' : 'rgba(194,119,62,0.1)',
+                      background: apt.status === 'confirmed' ? 'rgba(140,158,148,0.2)' : apt.status === 'cancelled' ? 'rgba(184,117,58,0.15)' : 'rgba(184,117,58,0.1)',
                       color: apt.status === 'confirmed' ? 'var(--sage-dark)' : 'var(--terracotta)',
                     }}
                   >

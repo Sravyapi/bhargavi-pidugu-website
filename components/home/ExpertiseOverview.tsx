@@ -9,7 +9,7 @@ const expertiseAreas = [
     description: 'Congenital and developmental cataracts in infants and children. Early intervention for lifelong vision.',
     href: '/expertise#paediatric-cataract',
     color: 'var(--terracotta)',
-    bg: 'rgba(194,119,62,0.08)',
+    bg: 'rgba(184,117,58,0.08)',
   },
   {
     icon: Eye,
@@ -17,7 +17,7 @@ const expertiseAreas = [
     description: 'Eye alignment surgery for squint (esotropia, exotropia). Treating the cause — not just the symptom.',
     href: '/expertise#strabismus',
     color: 'var(--terracotta)',
-    bg: 'rgba(194,119,62,0.08)',
+    bg: 'rgba(184,117,58,0.08)',
   },
   {
     icon: Brain,

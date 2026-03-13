@@ -1,12 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
-import { requireAdmin } from '@/lib/auth'
+import { requireAuth, UnauthorizedError, unauthorizedResponse } from '@/lib/auth-utils'
 import { getResend, FROM_EMAIL } from '@/lib/email/resend'
 
 export async function POST(request: NextRequest) {
   try {
-    const { user, errorResponse } = await requireAdmin()
-    if (errorResponse) return errorResponse
+    try {
+      await requireAuth()
+    } catch (e) {
+      if (e instanceof UnauthorizedError) return unauthorizedResponse()
+      throw e
+    }
 
     const body = await request.json()
     const { subject, message } = body

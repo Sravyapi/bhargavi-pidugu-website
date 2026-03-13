@@ -49,6 +49,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Bookings are currently closed.' }, { status: 400 })
     }
 
+    // Rate limit: max 5 booking attempts from same email per hour
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
+    const { count: recentCount } = await supabase
+      .from('appointments')
+      .select('id', { count: 'exact', head: true })
+      .eq('contact_email', result.data.contact_email)
+      .gte('created_at', oneHourAgo)
+    if ((recentCount ?? 0) >= 5) {
+      return NextResponse.json(
+        { success: false, error: 'Too many booking attempts. Please try again later.' },
+        { status: 429 }
+      )
+    }
+
     // Race condition check — slot still available?
     const { data: conflictingApt } = await supabase
       .from('appointments')
@@ -62,9 +76,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Handle file uploads
-    const reportFiles: ReportFile[] = []
     const files = formData.getAll('reports') as File[]
     const skippedFiles: string[] = []
+    const validFiles: File[] = []
 
     for (const file of files) {
       if (!(file instanceof File) || file.size === 0) continue
@@ -72,20 +86,28 @@ export async function POST(request: NextRequest) {
         skippedFiles.push(file.name)
         continue
       }
-
-      const ext = file.name.split('.').pop()
-      const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
-      const buffer = await file.arrayBuffer()
-
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from('reports')
-        .upload(path, buffer, { contentType: file.type })
-
-      if (!uploadError && uploadData) {
-        const { data: urlData } = supabase.storage.from('reports').getPublicUrl(path)
-        reportFiles.push({ name: file.name, url: urlData.publicUrl, storage_path: path })
-      }
+      validFiles.push(file)
     }
+
+    const reportFiles: ReportFile[] = (
+      await Promise.all(
+        validFiles.map(async (file) => {
+          const ext = file.name.split('.').pop()
+          const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+          const buffer = await file.arrayBuffer()
+
+          const { data: uploadData, error: uploadError } = await supabase.storage
+            .from('reports')
+            .upload(path, buffer, { contentType: file.type })
+
+          if (!uploadError && uploadData) {
+            const { data: urlData } = supabase.storage.from('reports').getPublicUrl(path)
+            return { name: file.name, url: urlData.publicUrl, storage_path: path } satisfies ReportFile
+          }
+          return null
+        })
+      )
+    ).filter((f): f is ReportFile => f !== null)
 
     // Get duration from site_content
     const { data: durationRow } = await supabase

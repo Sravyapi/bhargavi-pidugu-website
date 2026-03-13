@@ -62,15 +62,15 @@ export function StatsStrip() {
       {/* Subtle grid overlay */}
       <div className="absolute inset-0 opacity-10 pointer-events-none"
         style={{
-          backgroundImage: 'linear-gradient(rgba(194,119,62,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(194,119,62,0.3) 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(rgba(184,117,58,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(184,117,58,0.3) 1px, transparent 1px)',
           backgroundSize: '60px 60px',
         }}
       />
 
       <div className="container-site relative z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 divide-x divide-white/10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 divide-x divide-y lg:divide-y-0 divide-white/10">
           {stats.map((stat, i) => (
-            <AnimatedSection key={i} delay={i * 0.1} direction="up" className="px-6 lg:px-8 py-4 text-center lg:text-left">
+            <AnimatedSection key={i} delay={i * 0.1} direction="up" className="px-5 lg:px-8 py-6 text-center lg:text-left">
               <div className="stat-number mb-1" style={{ color: stat.color }}>
                 <CountUp target={stat.value} suffix={stat.suffix} duration={1600} />
               </div>

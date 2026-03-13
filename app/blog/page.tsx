@@ -3,10 +3,17 @@ import Link from 'next/link'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { Calendar, Clock, ArrowRight } from 'lucide-react'
+import { BlogPostThumbnail } from '@/components/ui/BlogPostThumbnail'
 
 export const metadata: Metadata = {
-  title: 'Blog',
-  description: 'Articles on paediatric eye care, strabismus, and children\'s vision health by Dr. Bhargavi Pidugu.',
+  title: 'Blog — Children\'s Eye Health',
+  description: "Parent-friendly articles on paediatric ophthalmology by Dr. Bhargavi Pidugu — squint, lazy eye, cataracts, myopia, and more. Written for families in Hyderabad and across India.",
+  alternates: { canonical: 'https://drbhargavipidugu.com/blog' },
+  openGraph: {
+    title: "Children's Eye Health Blog | Dr. Bhargavi Pidugu",
+    description: "Expert articles on paediatric eye conditions — strabismus, amblyopia, cataracts, screen time, and vision development — written for Indian parents.",
+    url: 'https://drbhargavipidugu.com/blog',
+  },
 }
 
 async function getBlogPosts() {
@@ -79,23 +86,17 @@ export default async function BlogPage() {
                 cover_image_url: string | null
                 published_at: string | null
                 content: string
+                category: string
               }, i: number) => (
                 <AnimatedSection key={post.id} delay={i * 0.07}>
                   <Link href={`/blog/${post.slug}`} className="card-warm block overflow-hidden group" style={{ textDecoration: 'none' }}>
                     {/* Cover */}
-                    <div
-                      className="w-full h-48 relative overflow-hidden"
-                      style={{
-                        background: post.cover_image_url
-                          ? 'var(--warm-beige)'
-                          : 'linear-gradient(135deg, var(--terracotta-light), var(--warm-beige))',
-                      }}
-                    >
-                      {!post.cover_image_url && (
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', color: 'var(--terracotta)', opacity: 0.3 }}>BP</span>
-                        </div>
-                      )}
+                    <div className="w-full h-48 relative overflow-hidden">
+                      <BlogPostThumbnail
+                        category={post.category as 'paediatric-eye-health' | 'for-parents' | 'strabismus' | 'neuro-ophthalmology' | 'general-eye-care'}
+                        title={post.title}
+                        className="absolute inset-0"
+                      />
                     </div>
 
                     <div className="p-5">

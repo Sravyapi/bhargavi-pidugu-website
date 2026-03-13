@@ -8,8 +8,8 @@ const conferences = [
     type: 'International',
     conference: 'APAO — Hong Kong',
     presentations: [
-      'Oral: Nystagmus surgery outcomes in paediatric patients',
-      'Oral: Strabismus pattern analysis in neuro-ophthalmology cases',
+      'Oral: Unveiling Cerebrotendinous Xanthomatosis Through the Eye – Clinical and Genetic Insights',
+      'Oral: Genetic Landscape of Ectopia Lentis Over Three Years in a Single Tertiary Eye Care Centre',
     ],
     icon: Globe,
   },
@@ -18,17 +18,18 @@ const conferences = [
     type: 'International',
     conference: 'APAO — New Delhi',
     presentations: [
-      'Poster: Long-term outcomes of early-onset strabismus intervention',
+      'E-Poster: A Rare Case of Cyclic Esotropia – Presentation and Management',
+      'Poster: Unilateral Acquired Brown\'s Syndrome of Inflammatory Origin – Presentation and Management',
     ],
     icon: Globe,
   },
   {
-    year: '2025',
+    year: '2024',
     type: 'National',
-    conference: 'POSN — Annual Conference',
+    conference: 'POSN — Bengaluru',
     presentations: [
-      'Oral: Paediatric cataract surgical volume and visual outcomes',
-      'Poster: Amblyopia compliance and digital therapy tools',
+      'Oral: Achiasma Revealed by Congenital Nystagmus and MRI Imaging',
+      'Oral: Oculomotor Abnormalities and Surgical Outcome of Acquired Esotropia in Type 3 Gaucher\'s Disease',
     ],
     icon: MapPin,
   },
@@ -38,9 +39,9 @@ export function ConferenceHighlights() {
   return (
     <section className="py-24 lg:py-32 relative overflow-hidden" style={{ background: 'var(--surface)' }}>
 
-      {/* Background watermark */}
+      {/* Background watermark — desktop only */}
       <div
-        className="absolute right-0 bottom-0 text-[14rem] font-bold leading-none opacity-[0.03] pointer-events-none select-none"
+        className="hidden md:block absolute right-0 bottom-0 text-[14rem] font-bold leading-none opacity-[0.03] pointer-events-none select-none"
         style={{ fontFamily: 'var(--font-display)', color: 'var(--terracotta)' }}
         aria-hidden
       >
@@ -50,7 +51,7 @@ export function ConferenceHighlights() {
       <div className="container-site relative z-10">
 
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-10 lg:mb-16">
           <AnimatedSection>
             <p className="label-ui mb-3">Academic Presentations</p>
             <h2 className="heading-section">
@@ -88,7 +89,7 @@ export function ConferenceHighlights() {
                   <span
                     className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold"
                     style={{
-                      background: type === 'International' ? 'rgba(194,119,62,0.12)' : 'rgba(140,158,148,0.12)',
+                      background: type === 'International' ? 'rgba(184,117,58,0.12)' : 'rgba(140,158,148,0.12)',
                       color: type === 'International' ? 'var(--terracotta-dark)' : 'var(--sage-dark)',
                       fontFamily: 'var(--font-ui)',
                     }}

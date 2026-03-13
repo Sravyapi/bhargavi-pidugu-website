@@ -46,7 +46,7 @@ export function FAQSection() {
   return (
     <section className="py-24 lg:py-32" style={{ background: 'var(--cream)' }}>
       <div className="container-site">
-        <div className="grid lg:grid-cols-[1fr_2fr] gap-16 lg:gap-20 items-start">
+        <div className="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-20 items-start">
 
           {/* LEFT: sticky header */}
           <AnimatedSection direction="left" className="lg:sticky lg:top-28">
@@ -74,10 +74,10 @@ export function FAQSection() {
                   className="rounded-2xl overflow-hidden transition-all duration-200"
                   style={{
                     border: open === i
-                      ? '1px solid rgba(194,119,62,0.4)'
+                      ? '1px solid rgba(184,117,58,0.4)'
                       : '1px solid var(--border)',
                     background: open === i ? 'var(--surface)' : 'var(--cream)',
-                    boxShadow: open === i ? '0 4px 20px rgba(194,119,62,0.08)' : 'none',
+                    boxShadow: open === i ? '0 4px 20px rgba(184,117,58,0.08)' : 'none',
                   }}
                 >
                   {/* Question row */}
@@ -129,7 +129,7 @@ export function FAQSection() {
                         transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                         className="overflow-hidden"
                       >
-                        <div className="px-5 lg:px-6 pb-5 lg:pb-6 pl-[4.5rem]">
+                        <div className="px-4 lg:px-6 pb-4 lg:pb-6 pl-4 lg:pl-[4.5rem]">
                           <p className="text-sm leading-relaxed" style={{ color: 'var(--stone)', fontFamily: 'var(--font-ui)' }}>
                             {faq.a}
                           </p>

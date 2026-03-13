@@ -46,14 +46,19 @@ export async function PATCH(request: NextRequest) {
 
     const supabase = await createAdminClient()
 
-    for (const [key, value] of Object.entries(body)) {
+    for (const key of Object.keys(body)) {
       if (!ALLOWED_CONTENT_KEYS.has(key)) {
         return NextResponse.json({ success: false, error: `Invalid key: ${key}` }, { status: 400 })
       }
-      await supabase
-        .from('site_content')
-        .upsert({ key, value: String(value), updated_at: new Date().toISOString() }, { onConflict: 'key' })
     }
+
+    await Promise.all(
+      Object.entries(body).map(([key, value]) =>
+        supabase
+          .from('site_content')
+          .upsert({ key, value: String(value), updated_at: new Date().toISOString() }, { onConflict: 'key' })
+      )
+    )
 
     return NextResponse.json({ success: true })
   } catch (error) {

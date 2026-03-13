@@ -18,6 +18,20 @@ export async function POST(request: NextRequest) {
     const { name, phone, email, reason } = result.data
     const supabase = await createAdminClient()
 
+    // Rate limit: max 3 submissions from same email per hour
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
+    const { count } = await supabase
+      .from('contact_messages')
+      .select('id', { count: 'exact', head: true })
+      .eq('email', email)
+      .gte('created_at', oneHourAgo)
+    if ((count ?? 0) >= 3) {
+      return NextResponse.json(
+        { success: false, error: 'Too many requests. Please try again later.' },
+        { status: 429 }
+      )
+    }
+
     const { error } = await supabase
       .from('contact_messages')
       .insert({ name, phone, email, reason })

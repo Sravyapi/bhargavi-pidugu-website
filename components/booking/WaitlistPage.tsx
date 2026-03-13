@@ -21,7 +21,7 @@ const fireConfetti = () => {
     particleCount: 80,
     spread: 70,
     origin: { y: 0.6 },
-    colors: ['#C2773E', '#8C9E94', '#E8BF9A', '#B8C8BF'],
+    colors: ['#B8753A', '#8C9E94', '#E8C8A8', '#B8C8BF'],
   })
 }
 
@@ -60,7 +60,7 @@ export function WaitlistPage() {
           <div className="text-center mb-10">
             <div
               className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
-              style={{ background: 'rgba(194,119,62,0.12)', border: '2px solid rgba(194,119,62,0.3)' }}
+              style={{ background: 'rgba(184,117,58,0.12)', border: '2px solid rgba(184,117,58,0.3)' }}
             >
               <Clock size={32} style={{ color: 'var(--terracotta)' }} />
             </div>

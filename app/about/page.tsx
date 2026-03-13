@@ -7,8 +7,14 @@ import { DownloadCVButton } from '@/components/about/DownloadCVButton'
 import { MapPin, GraduationCap } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'About',
-  description: 'Fellowship-trained paediatric ophthalmologist with 6+ years of experience and 1,500+ independent surgeries.',
+  title: 'About Dr. Bhargavi Pidugu',
+  description: 'Fellowship-trained paediatric ophthalmologist at LV Prasad Eye Institute, Hyderabad — 1,500+ independent surgeries, 6+ years of experience, subspecialist in strabismus and neuro-ophthalmology.',
+  alternates: { canonical: 'https://drbhargavipidugu.com/about' },
+  openGraph: {
+    title: 'About Dr. Bhargavi Pidugu | Paediatric Ophthalmologist, Hyderabad',
+    description: 'Fellowship-trained at LV Prasad Eye Institute with 1,500+ independent surgeries. Subspecialist in paediatric cataract, strabismus surgery, and neuro-ophthalmology.',
+    url: 'https://drbhargavipidugu.com/about',
+  },
 }
 
 export default function AboutPage() {
@@ -115,8 +121,8 @@ export default function AboutPage() {
             <SectionHeader label="References" title="Available upon request" />
             <div className="space-y-4">
               {[
-                { name: 'Dr. Ramesh Kekunnaya', role: 'Head, Paediatric Ophthalmology & Strabismus', inst: 'LV Prasad Eye Institute, Hyderabad' },
-                { name: 'Dr. Goura Chattannavar', role: 'Consultant, Neuro-Ophthalmology & Strabismus', inst: 'LV Prasad Eye Institute, Hyderabad' },
+                { name: 'Dr. Ramesh Kekunnaya', role: 'Head, Child Sight Institute & Network Director', inst: 'LV Prasad Eye Institute, Hyderabad' },
+                { name: 'Dr. Goura Chattannavar', role: 'Consultant — Paediatric Ophthalmology, Strabismus & Neuro-Ophthalmology', inst: 'LV Prasad Eye Institute, Hyderabad' },
               ].map(ref => (
                 <div key={ref.name} className="card-warm p-5">
                   <h3 className="font-semibold mb-0.5" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal)', fontSize: '0.95rem' }}>{ref.name}</h3>

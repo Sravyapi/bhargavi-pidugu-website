@@ -115,7 +115,7 @@ export default function ExpertisePage() {
             Specialist care for<br />
             <em style={{ color: 'var(--terracotta)' }}>every little eye</em>
           </h1>
-          <p className="text-lg max-w-2xl" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal-light)' }}>
+          <p className="text-base lg:text-lg max-w-2xl" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal-light)' }}>
             From routine checks to complex surgical interventions — subspecialty-trained expertise in paediatric ophthalmology, strabismus, and neuro-ophthalmology.
           </p>
         </div>
@@ -123,7 +123,7 @@ export default function ExpertisePage() {
 
       {/* Sticky sub-nav */}
       <div
-        className="sticky top-16 md:top-20 z-40 border-b"
+        className="sticky top-20 md:top-24 z-40 border-b"
         style={{ background: 'white', borderColor: 'var(--border)' }}
       >
         <div className="container-site overflow-x-auto">

@@ -5,6 +5,7 @@ import { useState } from 'react'
 import {
   LayoutDashboard, Calendar, Clock, Mail, Edit3, Image, Settings, LogOut, Menu, X
 } from 'lucide-react'
+import { signOut } from '@/app/admin/login/actions'
 
 const NAV_ITEMS = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
@@ -63,7 +64,7 @@ export function AdminSidebar() {
 
       {/* Sign out */}
       <div className="p-4 border-t" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
-        <form action="/api/auth/signout" method="POST">
+        <form action={signOut}>
           <button
             type="submit"
             className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium w-full transition-all"

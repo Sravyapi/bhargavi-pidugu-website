@@ -20,7 +20,7 @@ export function Navbar() {
     <header
       className="fixed top-0 left-0 right-0 z-50"
       style={{
-        background: '#1C1917',
+        background: '#2C2420',
         borderBottom: 'none',
         boxShadow: '0 2px 24px rgba(0,0,0,0.18)',
       }}
@@ -132,7 +132,7 @@ export function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
             className="md:hidden overflow-hidden"
-            style={{ background: '#2C2825', borderTop: '1px solid rgba(255,255,255,0.1)' }}
+            style={{ background: '#2C2420', borderTop: '1px solid rgba(255,255,255,0.1)' }}
           >
             <div className="container-site py-4 flex flex-col gap-1">
               {NAV_LINKS.map(link => {

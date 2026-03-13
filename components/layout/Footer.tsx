@@ -10,10 +10,10 @@ export function Footer() {
     }} />
     <footer style={{ background: 'var(--charcoal)', color: 'var(--stone-light)' }} className="mt-0">
       <div className="container-site py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 mb-8 md:mb-10">
           {/* Brand */}
           <div>
-            <h3 style={{ fontFamily: 'var(--font-display)', color: 'white', fontWeight: 400 }} className="text-2xl mb-2">
+            <h3 style={{ fontFamily: 'var(--font-display)', color: 'white', fontWeight: 400 }} className="text-xl md:text-2xl mb-2">
               {DOCTOR.name}
             </h3>
             <p style={{ fontFamily: 'var(--font-ui)', fontSize: '0.8rem', color: 'var(--terracotta-light)', letterSpacing: '0.1em' }} className="uppercase mb-4">

@@ -4,7 +4,13 @@ import { BookingFlow } from '@/components/booking/BookingFlow'
 
 export const metadata: Metadata = {
   title: 'Book a Consultation',
-  description: 'Book an online consultation with Dr. Bhargavi Pidugu, paediatric ophthalmologist.',
+  description: "Book an online consultation with Dr. Bhargavi Pidugu — paediatric ophthalmologist at LV Prasad Eye Institute, Hyderabad. Get expert advice on strabismus, lazy eye, and children's vision.",
+  alternates: { canonical: 'https://drbhargavipidugu.com/book' },
+  openGraph: {
+    title: 'Book a Consultation | Dr. Bhargavi Pidugu, Paediatric Ophthalmologist',
+    description: "Book a 30-minute online consultation with Dr. Bhargavi Pidugu for paediatric eye care, strabismus, and children's vision concerns.",
+    url: 'https://drbhargavipidugu.com/book',
+  },
 }
 
 async function getBookingSettings() {

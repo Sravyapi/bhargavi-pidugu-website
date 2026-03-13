@@ -48,7 +48,7 @@ export function GalleryTeaser() {
                 {/* Hover overlay */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
-                  style={{ background: 'rgba(194,119,62,0.25)' }}
+                  style={{ background: 'rgba(184,117,58,0.25)' }}
                 >
                   <div className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

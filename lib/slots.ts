@@ -1,8 +1,7 @@
 import { addMinutes, setHours, setMinutes, setSeconds, setMilliseconds, isBefore, isAfter } from 'date-fns'
 import { toZonedTime, fromZonedTime } from 'date-fns-tz'
 import type { AvailabilitySchedule, TimeSlot } from './types'
-
-export const IST = 'Asia/Kolkata'
+import { IST_TIMEZONE as IST } from './constants'
 
 function parseTimeToDate(date: Date, timeStr: string): Date {
   const [hours, minutes] = timeStr.split(':').map(Number)

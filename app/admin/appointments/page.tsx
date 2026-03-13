@@ -22,7 +22,7 @@ type Appointment = {
 }
 
 const STATUS_COLORS: Record<string, { bg: string; color: string }> = {
-  pending: { bg: 'rgba(194,119,62,0.1)', color: 'var(--terracotta)' },
+  pending: { bg: 'rgba(184,117,58,0.1)', color: 'var(--terracotta)' },
   confirmed: { bg: 'rgba(140,158,148,0.2)', color: 'var(--sage-dark)' },
   cancelled: { bg: 'rgba(140,123,107,0.15)', color: 'var(--stone)' },
   completed: { bg: 'rgba(140,158,148,0.1)', color: 'var(--sage-dark)' },
