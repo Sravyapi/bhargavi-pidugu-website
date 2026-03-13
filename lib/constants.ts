@@ -22,3 +22,11 @@ export const TOKEN_REFRESH_BUFFER_MS = 5 * 60 * 1000
 
 /** Indian Standard Time timezone identifier */
 export const IST_TIMEZONE = 'Asia/Kolkata'
+
+export const BOOKING_LIMITS = {
+  MAX_DAYS_AHEAD: 14,
+  MAX_CONTACT_REQUESTS_PER_HOUR: 3,
+  MAX_BOOKING_ATTEMPTS_PER_HOUR: 5,
+} as const
+
+export const IST_OFFSET_MS = 19800000 // UTC+5:30 in milliseconds

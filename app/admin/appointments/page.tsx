@@ -40,6 +40,7 @@ export default function AppointmentsPage() {
       if (!res.ok) throw new Error('Failed to load')
       return res.json()
     },
+    staleTime: 5 * 60 * 1000,
   })
 
   const cancelMutation = useMutation({

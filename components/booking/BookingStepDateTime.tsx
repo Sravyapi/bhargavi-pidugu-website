@@ -1,4 +1,5 @@
 'use client'
+import { useMemo } from 'react'
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react'
 import { format, addDays, startOfDay } from 'date-fns'
 
@@ -25,6 +26,11 @@ export function BookingStepDateTime({
   onBack,
   onContinue,
 }: BookingStepDateTimeProps) {
+  const availableSet = useMemo(
+    () => new Set(availableSlots),
+    [availableSlots]
+  )
+
   return (
     <div>
       <h2 className="heading-section mb-2">Pick a date &amp; time</h2>
@@ -74,7 +80,7 @@ export function BookingStepDateTime({
           ) : (
             <div className="flex gap-2 flex-wrap">
               {TIMES.map(t => {
-                const available = availableSlots.length === 0 || availableSlots.includes(t)
+                const available = availableSlots.length === 0 || availableSet.has(t)
                 return (
                   <button
                     key={t}

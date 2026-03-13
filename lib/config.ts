@@ -27,6 +27,10 @@ function getConfig() {
 
 export const config = getConfig()
 
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://drbhargavipidugu.com'
+
+export const adminEmail = process.env.ADMIN_EMAIL ?? 'dr.bhargavipidugu@gmail.com'
+
 export const CONTACT = {
   phone: '+91 96186 89030',
   phoneHref: 'tel:+919618689030',

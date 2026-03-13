@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
-import { requireAuth, unauthorizedResponse } from '@/lib/auth-utils'
+import { requireAuth, UnauthorizedError } from '@/lib/auth-utils'
 
 const ALLOWED_CONTENT_KEYS = new Set([
   'hero_title', 'hero_subtitle', 'about_bio', 'about_photo_url',
@@ -10,11 +10,7 @@ const ALLOWED_CONTENT_KEYS = new Set([
 
 export async function GET(request: NextRequest) {
   try {
-    try {
-      await requireAuth()
-    } catch {
-      return unauthorizedResponse()
-    }
+    await requireAuth()
 
     const supabase = await createAdminClient()
     const { data, error } = await supabase.from('site_content').select('key, value')
@@ -26,18 +22,17 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ success: true, data: content })
   } catch (error) {
-    console.error('[admin/content GET]', error)
-    return NextResponse.json({ success: false, error: 'Failed to fetch content.' }, { status: 500 })
+    if (error instanceof UnauthorizedError) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    console.error('[admin/content GET]:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 
 export async function PATCH(request: NextRequest) {
   try {
-    try {
-      await requireAuth()
-    } catch {
-      return unauthorizedResponse()
-    }
+    await requireAuth()
 
     const body = await request.json()
     if (typeof body !== 'object' || Array.isArray(body)) {
@@ -62,7 +57,10 @@ export async function PATCH(request: NextRequest) {
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('[admin/content PATCH]', error)
-    return NextResponse.json({ success: false, error: 'Failed to update content.' }, { status: 500 })
+    if (error instanceof UnauthorizedError) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    console.error('[admin/content PATCH]:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { Send, Loader2 } from 'lucide-react'
+import { apiFetch, ApiError } from '@/lib/api-client'
 
 const schema = z.object({
   name: z.string().min(2, 'Please enter your name'),
@@ -33,20 +34,16 @@ export function ContactForm() {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      if (res.ok) {
-        setSubmitted(true)
-        toast.success('Message sent! Dr. Bhargavi will get back to you shortly.')
-        reset()
+      await apiFetch('/api/contact', data)
+      setSubmitted(true)
+      toast.success('Message sent! Dr. Bhargavi will get back to you shortly.')
+      reset()
+    } catch (error) {
+      if (error instanceof ApiError) {
+        toast.error(error.message)
       } else {
-        toast.error('Something went wrong. Please try again.')
+        toast.error('Network error. Please try again.')
       }
-    } catch {
-      toast.error('Network error. Please try again.')
     }
   }
 

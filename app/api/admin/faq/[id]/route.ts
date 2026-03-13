@@ -1,14 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
-import { requireAuth, unauthorizedResponse } from '@/lib/auth-utils'
+import { requireAuth, UnauthorizedError } from '@/lib/auth-utils'
 
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    try {
-      await requireAuth()
-    } catch {
-      return unauthorizedResponse()
-    }
+    await requireAuth()
 
     const { id } = await params
     const body = await request.json()
@@ -30,18 +26,17 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     if (error) throw error
     return NextResponse.json({ success: true, data })
   } catch (error) {
-    console.error('[admin/faq/[id] PATCH]', error)
-    return NextResponse.json({ success: false, error: 'Failed to update FAQ.' }, { status: 500 })
+    if (error instanceof UnauthorizedError) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    console.error('[admin/faq/[id] PATCH]:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 
 export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    try {
-      await requireAuth()
-    } catch {
-      return unauthorizedResponse()
-    }
+    await requireAuth()
 
     const { id } = await params
     const supabase = await createAdminClient()
@@ -51,7 +46,10 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('[admin/faq/[id] DELETE]', error)
-    return NextResponse.json({ success: false, error: 'Failed to delete FAQ.' }, { status: 500 })
+    if (error instanceof UnauthorizedError) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    console.error('[admin/faq/[id] DELETE]:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

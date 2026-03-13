@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import { Clock, Loader2, CheckCircle } from 'lucide-react'
 import confetti from 'canvas-confetti'
+import { apiFetch, ApiError } from '@/lib/api-client'
 
 const schema = z.object({
   name: z.string().min(2, 'Please enter your name'),
@@ -34,21 +35,17 @@ export function WaitlistPage() {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const res = await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      if (res.ok) {
-        setSubmitted(true)
-        fireConfetti()
-        toast.success("You're on the waitlist! We'll notify you when bookings open.")
-        reset()
+      await apiFetch('/api/waitlist', data)
+      setSubmitted(true)
+      fireConfetti()
+      toast.success("You're on the waitlist! We'll notify you when bookings open.")
+      reset()
+    } catch (error) {
+      if (error instanceof ApiError) {
+        toast.error(error.message)
       } else {
-        toast.error('Something went wrong. Please try again.')
+        toast.error('Network error. Please try again.')
       }
-    } catch {
-      toast.error('Network error. Please try again.')
     }
   }
 

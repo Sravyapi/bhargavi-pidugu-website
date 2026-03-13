@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback, memo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { Plus, Minus } from 'lucide-react'
@@ -40,8 +40,94 @@ const faqs = [
   },
 ]
 
+const FAQItem = memo(function FAQItem({
+  faq,
+  index,
+  isOpen,
+  onToggle,
+}: {
+  faq: { q: string; a: string }
+  index: number
+  isOpen: boolean
+  onToggle: (i: number) => void
+}) {
+  return (
+    <AnimatedSection delay={index * 0.05} direction="up">
+      <div
+        className="rounded-2xl overflow-hidden transition-all duration-200"
+        style={{
+          border: isOpen
+            ? '1px solid rgba(184,117,58,0.4)'
+            : '1px solid var(--border)',
+          background: isOpen ? 'var(--surface)' : 'var(--cream)',
+          boxShadow: isOpen ? '0 4px 20px rgba(184,117,58,0.08)' : 'none',
+        }}
+      >
+        {/* Question row */}
+        <button
+          className="w-full flex items-start gap-4 p-5 lg:p-6 text-left group"
+          onClick={() => onToggle(index)}
+          aria-expanded={isOpen}
+        >
+          {/* Number */}
+          <span
+            className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors duration-200"
+            style={{
+              background: isOpen ? 'var(--terracotta)' : 'var(--surface)',
+              color: isOpen ? 'white' : 'var(--stone)',
+              fontFamily: 'var(--font-ui)',
+            }}
+          >
+            {String(index + 1).padStart(2, '0')}
+          </span>
+
+          {/* Text */}
+          <span
+            className="flex-1 text-sm font-semibold leading-snug pt-1 transition-colors duration-200"
+            style={{
+              color: isOpen ? 'var(--charcoal)' : 'var(--charcoal-light)',
+              fontFamily: 'var(--font-ui)',
+            }}
+          >
+            {faq.q}
+          </span>
+
+          {/* Icon */}
+          <span
+            className="flex-shrink-0 w-6 h-6 flex items-center justify-center mt-0.5 transition-colors duration-200"
+            style={{ color: isOpen ? 'var(--terracotta)' : 'var(--stone)' }}
+          >
+            {isOpen ? <Minus size={16} /> : <Plus size={16} />}
+          </span>
+        </button>
+
+        {/* Answer */}
+        <AnimatePresence initial={false}>
+          {isOpen && (
+            <motion.div
+              key="answer"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="px-4 lg:px-6 pb-4 lg:pb-6 pl-4 lg:pl-[4.5rem]">
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--stone)', fontFamily: 'var(--font-ui)' }}>
+                  {faq.a}
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </AnimatedSection>
+  )
+})
+
 export function FAQSection() {
   const [open, setOpen] = useState<number | null>(null)
+  const handleToggle = useCallback((i: number) => setOpen(prev => prev === i ? null : i), [])
 
   return (
     <section className="py-16 lg:py-32" style={{ background: 'var(--cream)' }}>
@@ -69,76 +155,7 @@ export function FAQSection() {
           {/* RIGHT: accordion */}
           <div className="flex flex-col gap-3">
             {faqs.map((faq, i) => (
-              <AnimatedSection key={i} delay={i * 0.05} direction="up">
-                <div
-                  className="rounded-2xl overflow-hidden transition-all duration-200"
-                  style={{
-                    border: open === i
-                      ? '1px solid rgba(184,117,58,0.4)'
-                      : '1px solid var(--border)',
-                    background: open === i ? 'var(--surface)' : 'var(--cream)',
-                    boxShadow: open === i ? '0 4px 20px rgba(184,117,58,0.08)' : 'none',
-                  }}
-                >
-                  {/* Question row */}
-                  <button
-                    className="w-full flex items-start gap-4 p-5 lg:p-6 text-left group"
-                    onClick={() => setOpen(open === i ? null : i)}
-                    aria-expanded={open === i}
-                  >
-                    {/* Number */}
-                    <span
-                      className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors duration-200"
-                      style={{
-                        background: open === i ? 'var(--terracotta)' : 'var(--surface)',
-                        color: open === i ? 'white' : 'var(--stone)',
-                        fontFamily: 'var(--font-ui)',
-                      }}
-                    >
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-
-                    {/* Text */}
-                    <span
-                      className="flex-1 text-sm font-semibold leading-snug pt-1 transition-colors duration-200"
-                      style={{
-                        color: open === i ? 'var(--charcoal)' : 'var(--charcoal-light)',
-                        fontFamily: 'var(--font-ui)',
-                      }}
-                    >
-                      {faq.q}
-                    </span>
-
-                    {/* Icon */}
-                    <span
-                      className="flex-shrink-0 w-6 h-6 flex items-center justify-center mt-0.5 transition-colors duration-200"
-                      style={{ color: open === i ? 'var(--terracotta)' : 'var(--stone)' }}
-                    >
-                      {open === i ? <Minus size={16} /> : <Plus size={16} />}
-                    </span>
-                  </button>
-
-                  {/* Answer */}
-                  <AnimatePresence initial={false}>
-                    {open === i && (
-                      <motion.div
-                        key="answer"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                        className="overflow-hidden"
-                      >
-                        <div className="px-4 lg:px-6 pb-4 lg:pb-6 pl-4 lg:pl-[4.5rem]">
-                          <p className="text-sm leading-relaxed" style={{ color: 'var(--stone)', fontFamily: 'var(--font-ui)' }}>
-                            {faq.a}
-                          </p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </AnimatedSection>
+              <FAQItem key={i} faq={faq} index={i} isOpen={open === i} onToggle={handleToggle} />
             ))}
           </div>
         </div>

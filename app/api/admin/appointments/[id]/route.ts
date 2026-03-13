@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
-import { requireAuth, unauthorizedResponse } from '@/lib/auth-utils'
+import { requireAuth, UnauthorizedError } from '@/lib/auth-utils'
 import { z } from 'zod'
 
 const AppointmentUpdateSchema = z.object({
@@ -11,11 +11,7 @@ const AppointmentUpdateSchema = z.object({
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    try {
-      await requireAuth()
-    } catch {
-      return unauthorizedResponse()
-    }
+    await requireAuth()
 
     const { id } = await params
     const supabase = await createAdminClient()
@@ -24,18 +20,17 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     if (error) return NextResponse.json({ success: false, error: 'Appointment not found.' }, { status: 404 })
     return NextResponse.json({ success: true, data })
   } catch (error) {
-    console.error('[admin/appointments/[id] GET]', error)
-    return NextResponse.json({ success: false, error: 'Failed to fetch appointment.' }, { status: 500 })
+    if (error instanceof UnauthorizedError) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    console.error('[admin/appointments/[id] GET]:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    try {
-      await requireAuth()
-    } catch {
-      return unauthorizedResponse()
-    }
+    await requireAuth()
 
     const { id } = await params
     const body = await request.json()
@@ -57,7 +52,10 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     if (error) throw error
     return NextResponse.json({ success: true, data })
   } catch (error) {
-    console.error('[admin/appointments/[id] PATCH]', error)
-    return NextResponse.json({ success: false, error: 'Failed to update appointment.' }, { status: 500 })
+    if (error instanceof UnauthorizedError) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    console.error('[admin/appointments/[id] PATCH]:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

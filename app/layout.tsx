@@ -5,6 +5,7 @@ import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { Toaster } from 'sonner'
 import { QueryProvider } from '@/components/providers/QueryProvider'
+import { SITE_URL } from '@/lib/config'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -21,7 +22,7 @@ const inter = Inter({
   display: 'swap',
 })
 
-const BASE_URL = 'https://drbhargavipidugu.com'
+const BASE_URL = SITE_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),

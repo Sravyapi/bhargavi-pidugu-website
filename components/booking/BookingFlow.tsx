@@ -6,6 +6,8 @@ import { toast } from 'sonner'
 import { Video, Check } from 'lucide-react'
 import { BookingStep3Schema, type BookingStep3Input } from '@/lib/validations'
 import type { TimeSlot } from '@/lib/types'
+import { apiFetch, ApiError } from '@/lib/api-client'
+import { IST_OFFSET_MS } from '@/lib/constants'
 import { BookingStepType } from './BookingStepType'
 import { BookingStepDateTime } from './BookingStepDateTime'
 import { BookingStepPatient } from './BookingStepPatient'
@@ -55,13 +57,10 @@ export function BookingFlow() {
         const times = slots
           .filter((s) => s.available)
           .map((s) => {
-            const d = new Date(s.start)
-            const hh = String(d.getUTCHours() + 5).padStart(2, '0')
-            const rawMins = d.getUTCMinutes() + 30
-            const extraHours = Math.floor(rawMins / 60)
-            const mm = String(rawMins % 60).padStart(2, '0')
-            const finalHH = String(parseInt(hh) + extraHours).padStart(2, '0')
-            return `${finalHH}:${mm}`
+            const d = new Date(new Date(s.start).getTime() + IST_OFFSET_MS)
+            const hh = String(d.getUTCHours()).padStart(2, '0')
+            const mm = String(d.getUTCMinutes()).padStart(2, '0')
+            return `${hh}:${mm}`
           })
         setAvailableSlots(times)
       }
@@ -97,35 +96,31 @@ export function BookingFlow() {
     try {
       const slotDatetime = `${booking.date}T${booking.time}:00+05:30`
 
-      const fd = new FormData()
-      fd.append('slot_datetime', slotDatetime)
-      fd.append('patient_name', booking.patient.patient_name)
-      fd.append('patient_dob', booking.patient.patient_dob)
-      fd.append('relation_to_patient', booking.patient.relation_to_patient)
-      fd.append('contact_email', booking.patient.contact_email)
-      fd.append('contact_phone', booking.patient.contact_phone)
-      fd.append('whatsapp_preferred', String(booking.patient.whatsapp_preferred ?? false))
-      fd.append('concern_type', booking.patient.concern_type)
-      fd.append('concern_description', booking.patient.concern_description)
-      if (booking.patient.previous_diagnosis) fd.append('previous_diagnosis', booking.patient.previous_diagnosis)
-      if (booking.patient.current_prescription) fd.append('current_prescription', booking.patient.current_prescription)
-      fd.append('previous_surgeries', String(booking.patient.previous_surgeries ?? false))
-      if (booking.patient.surgery_details) fd.append('surgery_details', booking.patient.surgery_details)
-
-      const res = await fetch('/api/book', {
-        method: 'POST',
-        body: fd,
-      })
-      if (res.ok) {
-        const data = await res.json()
-        setConfirmation({ id: data.data.appointment_id, meet_link: data.data.meet_link })
-        toast.success('Appointment confirmed!')
-      } else {
-        const errData = await res.json().catch(() => ({}))
-        toast.error((errData as { error?: string }).error || 'Could not confirm appointment. Please try again.')
+      const bookingData = {
+        slot_datetime: slotDatetime,
+        patient_name: booking.patient.patient_name,
+        patient_dob: booking.patient.patient_dob,
+        relation_to_patient: booking.patient.relation_to_patient,
+        contact_email: booking.patient.contact_email,
+        contact_phone: booking.patient.contact_phone,
+        whatsapp_preferred: booking.patient.whatsapp_preferred ?? false,
+        concern_type: booking.patient.concern_type,
+        concern_description: booking.patient.concern_description,
+        ...(booking.patient.previous_diagnosis ? { previous_diagnosis: booking.patient.previous_diagnosis } : {}),
+        ...(booking.patient.current_prescription ? { current_prescription: booking.patient.current_prescription } : {}),
+        previous_surgeries: booking.patient.previous_surgeries ?? false,
+        ...(booking.patient.surgery_details ? { surgery_details: booking.patient.surgery_details } : {}),
       }
-    } catch {
-      toast.error('Network error. Please try again.')
+
+      const data = await apiFetch<{ data: { appointment_id: string; meet_link?: string } }>('/api/book', bookingData)
+      setConfirmation({ id: data.data.appointment_id, meet_link: data.data.meet_link })
+      toast.success('Appointment confirmed!')
+    } catch (error) {
+      if (error instanceof ApiError) {
+        toast.error(error.message)
+      } else {
+        toast.error('Network error. Please try again.')
+      }
     } finally {
       setConfirming(false)
     }

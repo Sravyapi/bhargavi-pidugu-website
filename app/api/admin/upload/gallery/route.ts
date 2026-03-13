@@ -1,15 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
-import { requireAuth, unauthorizedResponse } from '@/lib/auth-utils'
+import { requireAuth, UnauthorizedError } from '@/lib/auth-utils'
 import { FILE_UPLOAD } from '@/lib/constants'
 
 export async function POST(request: NextRequest) {
   try {
-    try {
-      await requireAuth()
-    } catch {
-      return unauthorizedResponse()
-    }
+    await requireAuth()
 
     const formData = await request.formData()
     const files = formData.getAll('files') as File[]
@@ -64,7 +60,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, data: { images: uploaded } })
   } catch (error) {
-    console.error('[admin/upload/gallery POST]', error)
-    return NextResponse.json({ success: false, error: 'Failed to upload gallery images.' }, { status: 500 })
+    if (error instanceof UnauthorizedError) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    console.error('[admin/upload/gallery POST]:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

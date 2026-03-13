@@ -6,7 +6,7 @@ import { bookingConfirmationPatient, bookingNotificationAdmin } from '@/lib/emai
 import { createCalendarEvent } from '@/lib/google/calendar'
 import { getAndUpdateAccessToken } from '@/lib/google/token-helper'
 import type { ReportFile } from '@/lib/types'
-import { FILE_UPLOAD } from '@/lib/constants'
+import { FILE_UPLOAD, BOOKING_LIMITS } from '@/lib/constants'
 
 export async function POST(request: NextRequest) {
   try {
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
       .select('id', { count: 'exact', head: true })
       .eq('contact_email', result.data.contact_email)
       .gte('created_at', oneHourAgo)
-    if ((recentCount ?? 0) >= 5) {
+    if ((recentCount ?? 0) >= BOOKING_LIMITS.MAX_BOOKING_ATTEMPTS_PER_HOUR) {
       return NextResponse.json(
         { success: false, error: 'Too many booking attempts. Please try again later.' },
         { status: 429 }

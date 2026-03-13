@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
-import { requireAuth, unauthorizedResponse } from '@/lib/auth-utils'
+import { requireAuth, UnauthorizedError } from '@/lib/auth-utils'
 import { deleteCalendarEvent } from '@/lib/google/calendar'
 import { getAndUpdateAccessToken } from '@/lib/google/token-helper'
 import { getResend, FROM_EMAIL } from '@/lib/email/resend'
@@ -8,11 +8,7 @@ import { bookingCancellationPatient } from '@/lib/email/templates/booking-cancel
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    try {
-      await requireAuth()
-    } catch {
-      return unauthorizedResponse()
-    }
+    await requireAuth()
 
     const { id } = await params
     const body = await request.json().catch(() => ({}))
@@ -64,7 +60,10 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('[admin/appointments/[id]/cancel POST]', error)
-    return NextResponse.json({ success: false, error: 'Failed to cancel appointment.' }, { status: 500 })
+    if (error instanceof UnauthorizedError) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    console.error('[admin/appointments/[id]/cancel POST]:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

@@ -3,6 +3,7 @@ import { createAdminClient } from '@/lib/supabase/server'
 import { ContactFormSchema } from '@/lib/validations'
 import { getResend, FROM_EMAIL, ADMIN_EMAIL } from '@/lib/email/resend'
 import { contactConfirmationPatient, contactNotificationAdmin } from '@/lib/email/templates/contact-confirmation'
+import { BOOKING_LIMITS } from '@/lib/constants'
 
 export async function POST(request: NextRequest) {
   try {
@@ -25,7 +26,7 @@ export async function POST(request: NextRequest) {
       .select('id', { count: 'exact', head: true })
       .eq('email', email)
       .gte('created_at', oneHourAgo)
-    if ((count ?? 0) >= 3) {
+    if ((count ?? 0) >= BOOKING_LIMITS.MAX_CONTACT_REQUESTS_PER_HOUR) {
       return NextResponse.json(
         { success: false, error: 'Too many requests. Please try again later.' },
         { status: 429 }

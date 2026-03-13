@@ -1,18 +1,13 @@
 import { NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
-import { requireAuth, UnauthorizedError, unauthorizedResponse } from '@/lib/auth-utils'
+import { requireAuth, UnauthorizedError } from '@/lib/auth-utils'
 import { startOfDay, endOfDay, startOfWeek, endOfWeek, subDays } from 'date-fns'
 import { fromZonedTime } from 'date-fns-tz'
 import { IST_TIMEZONE as IST } from '@/lib/constants'
 
 export async function GET() {
   try {
-    try {
-      await requireAuth()
-    } catch (e) {
-      if (e instanceof UnauthorizedError) return unauthorizedResponse()
-      throw e
-    }
+    await requireAuth()
 
     const supabase = await createAdminClient()
     const now = new Date()
@@ -57,7 +52,10 @@ export async function GET() {
       },
     })
   } catch (error) {
-    console.error('[admin/dashboard GET]', error)
-    return NextResponse.json({ success: false, error: 'Failed to load dashboard.' }, { status: 500 })
+    if (error instanceof UnauthorizedError) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    console.error('[admin/dashboard GET]:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

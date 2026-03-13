@@ -1,14 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
-import { requireAuth, unauthorizedResponse } from '@/lib/auth-utils'
+import { requireAuth, UnauthorizedError } from '@/lib/auth-utils'
 
 export async function GET(request: NextRequest) {
   try {
-    try {
-      await requireAuth()
-    } catch {
-      return unauthorizedResponse()
-    }
+    await requireAuth()
 
     const supabase = await createAdminClient()
     const [scheduleResult, contentResult] = await Promise.all([
@@ -26,18 +22,17 @@ export async function GET(request: NextRequest) {
       data: { schedule: scheduleResult.data, settings },
     })
   } catch (error) {
-    console.error('[admin/availability GET]', error)
-    return NextResponse.json({ success: false, error: 'Failed to fetch availability.' }, { status: 500 })
+    if (error instanceof UnauthorizedError) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    console.error('[admin/availability GET]:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 
 export async function PATCH(request: NextRequest) {
   try {
-    try {
-      await requireAuth()
-    } catch {
-      return unauthorizedResponse()
-    }
+    await requireAuth()
 
     const body = await request.json()
     const { schedule, settings } = body
@@ -63,7 +58,10 @@ export async function PATCH(request: NextRequest) {
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('[admin/availability PATCH]', error)
-    return NextResponse.json({ success: false, error: 'Failed to update availability.' }, { status: 500 })
+    if (error instanceof UnauthorizedError) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    console.error('[admin/availability PATCH]:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
