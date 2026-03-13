@@ -11,7 +11,7 @@ const credentials = [
 
 export function AboutTeaser() {
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden" style={{ background: 'var(--surface)' }}>
+    <section className="relative py-16 lg:py-32 overflow-hidden" style={{ background: 'var(--surface)' }}>
 
       {/* Decorative large terracotta numeral */}
       <div
@@ -23,7 +23,7 @@ export function AboutTeaser() {
       </div>
 
       <div className="container-site">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
 
           {/* LEFT: Photo with decorative offset frame */}
           <AnimatedSection direction="left" delay={0}>

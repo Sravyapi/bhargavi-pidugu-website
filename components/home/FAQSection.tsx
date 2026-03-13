@@ -44,7 +44,7 @@ export function FAQSection() {
   const [open, setOpen] = useState<number | null>(null)
 
   return (
-    <section className="py-24 lg:py-32" style={{ background: 'var(--cream)' }}>
+    <section className="py-16 lg:py-32" style={{ background: 'var(--cream)' }}>
       <div className="container-site">
         <div className="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-20 items-start">
 

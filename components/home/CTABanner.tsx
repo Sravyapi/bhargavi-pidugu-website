@@ -8,7 +8,7 @@ import { AnimatedSection } from '@/components/ui/AnimatedSection'
 export function CTABanner() {
   return (
     <section
-      className="relative py-28 lg:py-36 overflow-hidden gradient-animate"
+      className="relative py-20 lg:py-36 overflow-hidden gradient-animate"
       style={{
         background: 'linear-gradient(135deg, var(--terracotta) 0%, #B8753A 30%, var(--terracotta-dark) 60%, #6B3020 100%)',
         backgroundSize: '300% 300%',

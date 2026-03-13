@@ -37,7 +37,7 @@ const conferences = [
 
 export function ConferenceHighlights() {
   return (
-    <section className="py-24 lg:py-32 relative overflow-hidden" style={{ background: 'var(--surface)' }}>
+    <section className="py-16 lg:py-32 relative overflow-hidden" style={{ background: 'var(--surface)' }}>
 
       {/* Background watermark — desktop only */}
       <div
@@ -72,7 +72,7 @@ export function ConferenceHighlights() {
           {conferences.map(({ year, type, conference, presentations, icon: Icon }, i) => (
             <AnimatedSection key={i} delay={i * 0.12} direction="left">
               <div
-                className="card-lift rounded-2xl p-6 lg:p-8 flex flex-col lg:flex-row gap-6 lg:gap-10"
+                className="card-lift rounded-2xl p-5 lg:p-8 flex flex-col lg:flex-row gap-4 lg:gap-10"
                 style={{
                   background: 'var(--cream)',
                   border: '1px solid var(--border)',
