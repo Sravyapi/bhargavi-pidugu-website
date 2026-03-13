@@ -4,6 +4,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { Calendar, Clock, ArrowRight } from 'lucide-react'
 import { BlogPostThumbnail } from '@/components/ui/BlogPostThumbnail'
+import { createClient } from '@/lib/supabase/server'
 
 export const metadata: Metadata = {
   title: 'Blog — Children\'s Eye Health',
@@ -18,10 +19,14 @@ export const metadata: Metadata = {
 
 async function getBlogPosts() {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
-    const res = await fetch(`${baseUrl}/api/blog/posts`, { next: { revalidate: 60 } })
-    if (!res.ok) return []
-    return res.json()
+    const supabase = await createClient()
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select('id, slug, title, excerpt, cover_image_url, published_at, body, category')
+      .eq('status', 'published')
+      .order('published_at', { ascending: false })
+    if (error) throw error
+    return (data ?? []).map(({ body, ...rest }) => ({ ...rest, content: body ?? '' }))
   } catch {
     return []
   }
