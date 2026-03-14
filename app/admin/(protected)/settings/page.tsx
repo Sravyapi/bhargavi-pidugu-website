@@ -68,7 +68,7 @@ export default function SettingsPage() {
     setSaving(true)
     try {
       const toSave = [
-        { key: 'consultation_duration', value: String(settings.consultation_duration) },
+        { key: 'appointment_duration_minutes', value: String(settings.consultation_duration) },
         { key: 'consultation_fee', value: String(settings.consultation_fee) },
         { key: 'advance_booking_days', value: String(settings.advance_booking_days) },
         { key: 'admin_email', value: settings.admin_email },

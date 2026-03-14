@@ -36,7 +36,7 @@ export function BookingStepConfirm({
       </p>
 
       <div className="card-warm p-6 mb-6 space-y-4">
-        <div className="grid grid-cols-2 gap-4 text-sm" style={{ fontFamily: 'var(--font-ui)' }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm" style={{ fontFamily: 'var(--font-ui)' }}>
           <div>
             <p style={{ color: 'var(--stone)', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Type</p>
             <p style={{ color: 'var(--charcoal)' }}>{CONSULTATION_TYPES.find(t => t.id === bookingType)?.title}</p>
@@ -53,18 +53,18 @@ export function BookingStepConfirm({
             <p style={{ color: 'var(--stone)', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Contact</p>
             <p style={{ color: 'var(--charcoal)' }}>{patient.contact_phone}<br />{patient.contact_email}</p>
           </div>
-          <div className="col-span-2">
+          <div className="sm:col-span-2">
             <p style={{ color: 'var(--stone)', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Concern</p>
             <p style={{ color: 'var(--charcoal)' }}>{patient.concern_description}</p>
           </div>
         </div>
       </div>
 
-      <div className="flex gap-3">
-        <button onClick={onBack} className="btn-secondary">
+      <div className="flex flex-col sm:flex-row gap-3">
+        <button onClick={onBack} className="btn-secondary w-full sm:w-auto justify-center">
           <ChevronLeft size={16} /> Back
         </button>
-        <button onClick={onConfirm} disabled={confirming} className="btn-primary">
+        <button onClick={onConfirm} disabled={confirming} className="btn-primary w-full sm:w-auto justify-center">
           {confirming ? <Loader2 size={16} className="animate-spin" /> : <Calendar size={16} />}
           {confirming ? 'Confirming…' : 'Confirm Appointment'}
         </button>

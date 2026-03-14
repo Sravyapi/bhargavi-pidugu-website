@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Eye, Brain, Baby, Stethoscope } from 'lucide-react'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
@@ -49,7 +49,7 @@ const SECTIONS = [
     intro: 'Neuro-ophthalmology sits at the boundary of ophthalmology and neurology, addressing conditions where the brain, nerves, and visual pathways are involved.',
     paragraphs: [
       'The visual pathway extends from the retina through the optic nerve, chiasm, optic tracts, and lateral geniculate nucleus to the visual cortex — a vast stretch of neural tissue that can be affected by a wide range of neurological, vascular, and systemic conditions. Accurate localisation of the lesion often requires careful clinical examination combined with imaging.',
-      'Common presentations include sudden or gradual vision loss not explained by the eye itself, double vision, ptosis (drooping eyelid), abnormal pupil reactions, papilloedema, and disorders of eye movement. Early accurate diagnosis can be life-saving in conditions such as raised intracranial pressure or giant cell arteritis.',
+      'Common presentations include sudden or gradual vision loss not explained by the eye itself, double vision, ptosis (drooping eyelid), abnormal pupil reactions, papilloedema, and disorders of eye movement. Early accurate diagnosis can be life-saving in conditions such as raised intracranial pressure, intracranial tumours, or demyelinating disease.',
     ],
     conditions: [
       'Optic neuritis and optic neuropathy',
@@ -86,7 +86,6 @@ const SECTIONS = [
 
 export default function ExpertisePage() {
   const [activeSection, setActiveSection] = useState('paediatric-cataract')
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({})
 
   useEffect(() => {
     const observers: IntersectionObserver[] = []
@@ -116,7 +115,7 @@ export default function ExpertisePage() {
             <em style={{ color: 'var(--terracotta)' }}>every little eye</em>
           </h1>
           <p className="text-base lg:text-lg max-w-2xl" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal-light)' }}>
-            From routine checks to complex surgical interventions — subspecialty-trained expertise in paediatric ophthalmology, strabismus, and neuro-ophthalmology.
+            From a child&apos;s first eye exam to complex surgical correction — subspecialty expertise in paediatric ophthalmology, strabismus, and neuro-ophthalmology.
           </p>
         </div>
       </section>

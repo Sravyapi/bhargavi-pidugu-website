@@ -58,7 +58,7 @@ export default async function BlogPage() {
             <em style={{ color: 'var(--terracotta)' }}>children&apos;s eye health</em>
           </h1>
           <p className="text-lg max-w-2xl" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal-light)' }}>
-            Practical, parent-friendly articles on paediatric ophthalmology — from spotting early signs to understanding treatment.
+            Clear, parent-friendly articles on children&apos;s eye health — from recognising early warning signs to understanding what treatment involves.
           </p>
         </div>
       </section>

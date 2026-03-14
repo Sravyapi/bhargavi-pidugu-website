@@ -138,11 +138,11 @@ export function FAQSection() {
           <AnimatedSection direction="left" className="lg:sticky lg:top-28">
             <p className="label-ui mb-3">FAQ</p>
             <h2 className="heading-section mb-6">
-              Questions parents{' '}
-              <em className="text-gradient not-italic">often ask</em>
+              Questions we hear{' '}
+              <em className="text-gradient not-italic">every day</em>
             </h2>
             <p className="text-[var(--stone)] leading-relaxed mb-8" style={{ fontFamily: 'var(--font-ui)' }}>
-              From first appointments to surgery — clear answers to the questions we hear most often.
+              Straight answers — no jargon, no guesswork — on everything from first visits to surgery.
             </p>
             {/* Decorative element */}
             <div className="flex items-center gap-3">

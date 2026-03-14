@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
-import { Globe, MapPin } from 'lucide-react'
+import { Globe, MapPin, ChevronRight } from 'lucide-react'
 
 const conferences = [
   {
@@ -55,8 +55,8 @@ export function ConferenceHighlights() {
           <AnimatedSection>
             <p className="label-ui mb-3">Academic Presentations</p>
             <h2 className="heading-section">
-              Sharing research{' '}
-              <em className="text-gradient not-italic">globally</em>
+              Advancing the science,{' '}
+              <em className="text-gradient not-italic">sharing the findings</em>
             </h2>
           </AnimatedSection>
           <AnimatedSection delay={0.2} className="shrink-0">
@@ -68,11 +68,25 @@ export function ConferenceHighlights() {
         </div>
 
         {/* Timeline cards */}
-        <div className="flex flex-col gap-6">
+        <div className="relative flex flex-col gap-6">
+
+          {/* Vertical timeline line — desktop only */}
+          <div
+            className="hidden lg:block absolute left-[3.5rem] top-4 bottom-4 w-px pointer-events-none"
+            style={{ background: 'linear-gradient(to bottom, var(--terracotta), rgba(184,117,58,0.08))' }}
+          />
+
           {conferences.map(({ year, type, conference, presentations, icon: Icon }, i) => (
-            <AnimatedSection key={i} delay={i * 0.12} direction="left">
+            <AnimatedSection key={i} delay={i * 0.12} direction="left" className="relative">
+
+              {/* Timeline dot — desktop only */}
               <div
-                className="card-lift rounded-2xl p-5 lg:p-8 flex flex-col lg:flex-row gap-4 lg:gap-10"
+                className="hidden lg:block absolute left-[3.5rem] -translate-x-1/2 top-10 w-3 h-3 rounded-full z-10"
+                style={{ background: 'var(--terracotta)', border: '2px solid var(--surface)' }}
+              />
+
+              <div
+                className="card-lift rounded-2xl p-5 lg:p-8 flex flex-col lg:flex-row gap-4 lg:gap-10 lg:ml-20"
                 style={{
                   background: 'var(--cream)',
                   border: '1px solid var(--border)',
@@ -108,7 +122,7 @@ export function ConferenceHighlights() {
                   <ul className="flex flex-col gap-2">
                     {presentations.map((p, j) => (
                       <li key={j} className="flex gap-2 text-sm leading-relaxed" style={{ color: 'var(--stone)', fontFamily: 'var(--font-ui)' }}>
-                        <span style={{ color: 'var(--terracotta)', flexShrink: 0, marginTop: '2px' }}>◆</span>
+                        <ChevronRight size={14} style={{ color: 'var(--terracotta)', flexShrink: 0, marginTop: '3px' }} />
                         {p}
                       </li>
                     ))}

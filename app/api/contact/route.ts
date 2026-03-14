@@ -4,6 +4,7 @@ import { ContactFormSchema } from '@/lib/validations'
 import { getResend, FROM_EMAIL, ADMIN_EMAIL } from '@/lib/email/resend'
 import { contactConfirmationPatient, contactNotificationAdmin } from '@/lib/email/templates/contact-confirmation'
 import { BOOKING_LIMITS } from '@/lib/constants'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,13 +21,13 @@ export async function POST(request: NextRequest) {
     const supabase = await createAdminClient()
 
     // Rate limit: max 3 submissions from same email per hour
-    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
-    const { count } = await supabase
-      .from('contact_messages')
-      .select('id', { count: 'exact', head: true })
-      .eq('email', email)
-      .gte('created_at', oneHourAgo)
-    if ((count ?? 0) >= BOOKING_LIMITS.MAX_CONTACT_REQUESTS_PER_HOUR) {
+    const rateLimitExceeded = await checkRateLimit(supabase, {
+      table: 'contact_messages',
+      emailColumn: 'email',
+      email,
+      maxPerHour: BOOKING_LIMITS.MAX_CONTACT_REQUESTS_PER_HOUR,
+    })
+    if (rateLimitExceeded) {
       return NextResponse.json(
         { success: false, error: 'Too many requests. Please try again later.' },
         { status: 429 }

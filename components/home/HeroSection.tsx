@@ -109,9 +109,9 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
-              Fellowship-trained specialist at LV Prasad Eye Institute — one of Asia&apos;s
-              foremost eye care centres. Subspecialty expertise in strabismus,
-              paediatric cataracts, and neuro-ophthalmology.
+              Fellowship-trained at LV Prasad Eye Institute, Asia&apos;s foremost tertiary
+              eye care centre. Subspecialty expertise in squints, paediatric cataracts,
+              and neuro-ophthalmology — for children from birth through adolescence.
             </motion.p>
 
             {/* CTAs */}
@@ -126,7 +126,7 @@ export function HeroSection() {
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
               </Link>
               <Link href="/about" className="btn-secondary inline-flex items-center gap-2">
-                Learn More
+                Meet Dr. Bhargavi
               </Link>
             </motion.div>
 
@@ -152,7 +152,7 @@ export function HeroSection() {
               {[
                 { value: '1,500+', label: 'Surgeries' },
                 { value: '6+', label: 'Years' },
-                { value: '8', label: 'Presentations' },
+                { value: '10', label: 'Presentations' },
               ].map((s, i) => (
                 <div key={i} className="flex flex-col">
                   <span className="font-bold text-xl" style={{ color: 'var(--terracotta)', fontFamily: 'var(--font-display)' }}>{s.value}</span>

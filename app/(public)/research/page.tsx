@@ -98,7 +98,7 @@ export default function ResearchPage() {
             <em style={{ color: 'var(--terracotta)' }}>Academic Contributions</em>
           </h1>
           <p className="text-lg max-w-2xl mb-6" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal-light)' }}>
-            Sharing original research at national and international forums, contributing to the evolving evidence base in paediatric ophthalmology and strabismus.
+            Presenting original findings at national and international forums — contributing to a stronger evidence base in paediatric ophthalmology and strabismus.
           </p>
           <DownloadCVButton />
         </div>
@@ -235,9 +235,9 @@ export default function ResearchPage() {
         <div className="container-site text-center max-w-xl">
           <AnimatedSection>
             <p className="label-ui mb-3 justify-center">Download CV</p>
-            <h2 className="heading-section mb-4">Full academic record</h2>
+            <h2 className="heading-section mb-4">The complete picture</h2>
             <p className="text-base mb-6 meta-text">
-              Download the complete CV including all publications, conference presentations, and clinical experience.
+              Download the full CV — publications, conference presentations, surgical record, and clinical experience all in one place.
             </p>
             <DownloadCVButton />
           </AnimatedSection>

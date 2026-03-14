@@ -1,14 +1,5 @@
-import { emailBase, h1Style, pStyle, labelStyle, valueStyle, buttonStyle } from './base'
+import { emailBase, h1Style, pStyle, labelStyle, valueStyle, buttonStyle, escapeHtml } from './base'
 import { format } from 'date-fns'
-
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
-}
 
 export function bookingConfirmationPatient(data: {
   patientName: string

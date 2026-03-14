@@ -46,6 +46,15 @@ export function emailBase(content: string, subject: string): string {
 </html>`
 }
 
+export function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+}
+
 export const buttonStyle = `display:inline-block;background-color:#C4754A;color:#FDFBF8;text-decoration:none;padding:14px 28px;border-radius:8px;font-size:15px;font-weight:600;letter-spacing:-0.01em;`
 export const h1Style = `margin:0 0 16px;color:#2D2420;font-size:22px;font-weight:600;`
 export const pStyle = `margin:0 0 16px;color:#3D3530;font-size:15px;line-height:1.75;`

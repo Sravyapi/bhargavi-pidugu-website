@@ -7,15 +7,14 @@ import { Eye, X, Video, MessageSquare } from 'lucide-react'
 type Appointment = {
   id: string
   patient_name: string
-  patient_age: number
-  patient_gender: string
-  phone: string
-  email: string
-  consultation_type: string
-  slot_date: string
-  slot_time: string
-  chief_complaint: string
-  notes: string | null
+  patient_dob: string | null
+  contact_email: string
+  contact_phone: string
+  concern_type: string
+  concern_description: string | null
+  appointment_type: string
+  slot_datetime: string
+  duration_minutes: number
   status: string
   google_meet_link: string | null
   created_at: string
@@ -38,7 +37,8 @@ export default function AppointmentsPage() {
     queryFn: async () => {
       const res = await fetch('/api/admin/appointments')
       if (!res.ok) throw new Error('Failed to load')
-      return res.json()
+      const json = await res.json()
+      return json.data?.appointments ?? []
     },
     staleTime: 5 * 60 * 1000,
   })
@@ -105,17 +105,21 @@ export default function AppointmentsPage() {
                     style={{ borderBottom: i < filtered.length - 1 ? '1px solid var(--border)' : 'none' }}
                   >
                     <td className="p-4">
-                      <p className="font-medium text-xs" style={{ color: 'var(--charcoal)' }}>{apt.slot_date}</p>
-                      <p className="text-xs" style={{ color: 'var(--stone)' }}>{apt.slot_time} IST</p>
+                      <p className="font-medium text-xs" style={{ color: 'var(--charcoal)' }}>
+                        {new Date(apt.slot_datetime).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata' })}
+                      </p>
+                      <p className="text-xs" style={{ color: 'var(--stone)' }}>
+                        {new Date(apt.slot_datetime).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' })} IST
+                      </p>
                     </td>
                     <td className="p-4">
                       <p className="font-medium" style={{ color: 'var(--charcoal)' }}>{apt.patient_name}</p>
-                      <p className="text-xs" style={{ color: 'var(--stone)' }}>{apt.patient_age}y · {apt.patient_gender}</p>
+                      <p className="text-xs" style={{ color: 'var(--stone)' }}>{apt.contact_email}</p>
                     </td>
                     <td className="p-4">
                       <span className="flex items-center gap-1 text-xs" style={{ color: 'var(--stone)' }}>
-                        {apt.consultation_type === 'online_video' ? <Video size={12} /> : <MessageSquare size={12} />}
-                        {apt.consultation_type === 'online_video' ? 'Video' : 'Chat'}
+                        {apt.appointment_type === 'online_video' ? <Video size={12} /> : <MessageSquare size={12} />}
+                        {apt.appointment_type === 'online_video' ? 'Video' : 'Chat'}
                       </span>
                     </td>
                     <td className="p-4">
@@ -168,15 +172,15 @@ export default function AppointmentsPage() {
             <div className="space-y-3 text-sm" style={{ fontFamily: 'var(--font-ui)' }}>
               {[
                 ['Patient', selected.patient_name],
-                ['Age', `${selected.patient_age}y · ${selected.patient_gender}`],
-                ['Phone', selected.phone],
-                ['Email', selected.email],
-                ['Type', selected.consultation_type === 'online_video' ? 'Online Video' : 'Online Chat'],
-                ['Date', selected.slot_date],
-                ['Time', `${selected.slot_time} IST`],
+                ['DOB', selected.patient_dob ?? '—'],
+                ['Phone', selected.contact_phone],
+                ['Email', selected.contact_email],
+                ['Type', selected.appointment_type === 'online_video' ? 'Online Video' : 'Online Chat'],
+                ['Date/Time', `${new Date(selected.slot_datetime).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Kolkata' })} IST`],
+                ['Duration', `${selected.duration_minutes} min`],
                 ['Status', selected.status],
-                ['Chief Complaint', selected.chief_complaint],
-                ...(selected.notes ? [['Notes', selected.notes]] : []),
+                ['Concern', selected.concern_type],
+                ...(selected.concern_description ? [['Description', selected.concern_description]] : []),
               ].map(([key, val]) => (
                 <div key={key}>
                   <p className="text-xs font-semibold uppercase tracking-wide mb-0.5" style={{ color: 'var(--stone)' }}>{key}</p>

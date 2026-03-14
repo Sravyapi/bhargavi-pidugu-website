@@ -1,3 +1,5 @@
+import { IST_TIMEZONE } from '@/lib/constants'
+
 const CALENDAR_BASE = 'https://www.googleapis.com/calendar/v3'
 
 export async function createCalendarEvent(
@@ -24,8 +26,8 @@ export async function createCalendarEvent(
       body: JSON.stringify({
         summary: eventData.summary,
         description: eventData.description,
-        start: { dateTime: eventData.startDateTime, timeZone: 'Asia/Kolkata' },
-        end: { dateTime: eventData.endDateTime, timeZone: 'Asia/Kolkata' },
+        start: { dateTime: eventData.startDateTime, timeZone: IST_TIMEZONE },
+        end: { dateTime: eventData.endDateTime, timeZone: IST_TIMEZONE },
         attendees: [{ email: eventData.attendeeEmail, displayName: eventData.attendeeName }],
         conferenceData: {
           createRequest: {

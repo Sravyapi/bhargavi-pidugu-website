@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Calendar } from 'lucide-react'
+import { ArrowRight, Calendar, Eye } from 'lucide-react'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 
 export function CTABanner() {
@@ -14,6 +14,18 @@ export function CTABanner() {
         backgroundSize: '300% 300%',
       }}
     >
+
+      {/* Wave divider at top */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none pointer-events-none" style={{ height: '64px' }}>
+        <svg viewBox="0 0 1440 64" preserveAspectRatio="none" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,0 C360,64 1080,0 1440,64 L1440,0 L0,0 Z" fill="var(--surface)" />
+        </svg>
+      </div>
+
+      {/* Eye watermark — desktop only */}
+      <div className="hidden md:block absolute top-8 right-8 pointer-events-none opacity-[0.05] text-white">
+        <Eye size={120} />
+      </div>
 
       {/* Grain overlay */}
       <div
@@ -61,13 +73,13 @@ export function CTABanner() {
             className="text-white/60 text-xs uppercase tracking-[0.2em] font-semibold mb-5"
             style={{ fontFamily: 'var(--font-ui)' }}
           >
-            Take the First Step
+            Act Early, See Better
           </p>
         </AnimatedSection>
 
         <AnimatedSection direction="up" delay={0.1}>
           <h2 className="heading-display text-white mb-6 max-w-3xl mx-auto">
-            Your child&apos;s vision{' '}
+            Don&apos;t let a treatable{' '}
             <span
               style={{
                 textDecoration: 'underline',
@@ -75,7 +87,7 @@ export function CTABanner() {
                 textUnderlineOffset: '6px',
               }}
             >
-              matters.
+              condition wait.
             </span>
           </h2>
         </AnimatedSection>
@@ -85,8 +97,8 @@ export function CTABanner() {
             className="text-white/75 text-lg max-w-xl mx-auto mb-10 leading-relaxed"
             style={{ fontFamily: 'var(--font-ui)' }}
           >
-            Early intervention makes the biggest difference. Most paediatric eye
-            conditions are fully treatable when caught in time.
+            Most paediatric eye conditions — squints, lazy eye, cataracts — are
+            fully treatable when caught early. The window matters.
           </p>
         </AnimatedSection>
 
@@ -120,9 +132,9 @@ export function CTABanner() {
         <AnimatedSection delay={0.45} className="mt-14">
           <div className="flex flex-wrap justify-center gap-3 lg:gap-8">
             {[
-              'Fellowship-trained at LVPEI',
-              'Online consultations available',
-              'Paediatric specialist',
+              'Fellowship-trained at LV Prasad Eye Institute',
+              'Online consultations · post-June 2026',
+              '1,500+ independent surgeries',
             ].map((t, i) => (
               <div
                 key={i}

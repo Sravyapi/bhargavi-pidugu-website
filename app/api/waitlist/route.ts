@@ -4,6 +4,8 @@ import { WaitlistSchema } from '@/lib/validations'
 import { getResend, FROM_EMAIL, ADMIN_EMAIL } from '@/lib/email/resend'
 import { waitlistConfirmation } from '@/lib/email/templates/waitlist'
 import { requireAuth, UnauthorizedError, unauthorizedResponse } from '@/lib/auth-utils'
+import { checkRateLimit } from '@/lib/rate-limit'
+import { BOOKING_LIMITS } from '@/lib/constants'
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,14 +22,13 @@ export async function POST(request: NextRequest) {
     const supabase = await createAdminClient()
 
     // Rate limit: max 3 attempts from same email per hour
-    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
-    const { data: existing } = await supabase
-      .from('waitlist')
-      .select('created_at')
-      .eq('email', email)
-      .gte('created_at', oneHourAgo)
-      .limit(3)
-    if ((existing?.length ?? 0) >= 3) {
+    const rateLimitExceeded = await checkRateLimit(supabase, {
+      table: 'waitlist',
+      emailColumn: 'email',
+      email,
+      maxPerHour: BOOKING_LIMITS.MAX_CONTACT_REQUESTS_PER_HOUR,
+    })
+    if (rateLimitExceeded) {
       return NextResponse.json(
         { success: false, error: 'Too many requests. Please try again later.' },
         { status: 429 }

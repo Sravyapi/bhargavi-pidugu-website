@@ -14,12 +14,17 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).optional(),
 })
 
-// Only validate at runtime (not during build type-checking)
+// Validate at runtime. Required vars throw immediately; optional vars warn only.
 function getConfig() {
   const parsed = envSchema.safeParse(process.env)
   if (!parsed.success) {
-    // Log warnings but don't crash build — missing vars cause runtime errors naturally
-    console.warn('[config] Missing env vars:', parsed.error.flatten().fieldErrors)
+    const errors = parsed.error.flatten().fieldErrors
+    const required = ['NEXT_PUBLIC_SUPABASE_URL', 'NEXT_PUBLIC_SUPABASE_ANON_KEY', 'SUPABASE_SERVICE_ROLE_KEY']
+    const missingRequired = required.filter(k => k in errors)
+    if (missingRequired.length > 0) {
+      throw new Error(`[config] Missing required env vars: ${missingRequired.join(', ')}`)
+    }
+    console.warn('[config] Missing optional env vars:', errors)
     return process.env as z.infer<typeof envSchema>
   }
   return parsed.data
@@ -29,7 +34,6 @@ export const config = getConfig()
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://drbhargavipidugu.com'
 
-export const adminEmail = process.env.ADMIN_EMAIL ?? 'dr.bhargavipidugu@gmail.com'
 
 export const CONTACT = {
   phone: '+91 96186 89030',

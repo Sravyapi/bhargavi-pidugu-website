@@ -27,7 +27,13 @@ export function AboutTeaser() {
 
           {/* LEFT: Photo with decorative offset frame */}
           <AnimatedSection direction="left" delay={0}>
-            <div className="relative flex justify-center lg:justify-start">
+            <div className="relative flex justify-center lg:justify-start px-4 sm:px-8 lg:px-0">
+
+              {/* Large decorative circle behind photo */}
+              <div
+                className="hidden md:block absolute -top-12 -left-12 rounded-full pointer-events-none"
+                style={{ width: '120%', aspectRatio: '1', border: '2px solid rgba(184,117,58,0.08)' }}
+              />
 
               {/* Offset decorative box */}
               <div
@@ -93,8 +99,8 @@ export function AboutTeaser() {
 
             <AnimatedSection delay={0.2}>
               <h2 className="heading-section">
-                Six years at the intersection of{' '}
-                <em className="text-gradient not-italic">science and compassion</em>
+                Where surgical precision meets{' '}
+                <em className="text-gradient not-italic">genuine care</em>
               </h2>
             </AnimatedSection>
 
@@ -111,13 +117,21 @@ export function AboutTeaser() {
                   technical precision to every case — and genuine warmth to every family.
                 </p>
                 <p>
-                  Her philosophy: listen carefully, explain clearly, treat gently.
+                  Her approach: listen carefully, explain clearly, treat gently — every time.
                 </p>
               </div>
             </AnimatedSection>
 
             {/* Horizontal divider with quote */}
             <AnimatedSection delay={0.4}>
+              <div className="flex flex-col gap-1">
+                <div
+                  className="text-6xl leading-none font-bold opacity-20 -mb-2"
+                  style={{ color: 'var(--terracotta)', fontFamily: 'var(--font-display)' }}
+                  aria-hidden
+                >
+                  &ldquo;
+                </div>
               <blockquote
                 className="pl-4 py-1 text-base italic"
                 style={{
@@ -126,9 +140,9 @@ export function AboutTeaser() {
                   fontFamily: 'var(--font-body)',
                 }}
               >
-                &ldquo;She gives candies to children after their exam. She also presents research
-                at international conferences.&rdquo;
+                &ldquo;She gives candies to children after every exam — and presents her research at international conferences. Both feel equally natural to her.&rdquo;
               </blockquote>
+              </div>
             </AnimatedSection>
 
             <AnimatedSection delay={0.5}>

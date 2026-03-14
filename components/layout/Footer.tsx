@@ -20,7 +20,7 @@ export function Footer() {
               {DOCTOR.credentials}
             </p>
             <p className="text-sm leading-relaxed" style={{ fontFamily: 'var(--font-ui)' }}>
-              Fellowship-trained paediatric ophthalmologist specialising in children&apos;s eye care, strabismus, and neuro-ophthalmology.
+              Fellowship-trained paediatric ophthalmologist — precision surgical care and genuine compassion for children&apos;s eyes.
             </p>
           </div>
 
@@ -60,7 +60,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={16} style={{ color: 'var(--terracotta-light)' }} />
-                <a href={CONTACT.emailHref} className="hover:text-[var(--terracotta-light)] transition-colors">{CONTACT.email}</a>
+                <a href={CONTACT.emailHref} className="hover:text-[var(--terracotta-light)] transition-colors break-all">{CONTACT.email}</a>
               </li>
             </ul>
           </div>
@@ -68,7 +68,7 @@ export function Footer() {
 
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between gap-3 text-xs" style={{ fontFamily: 'var(--font-ui)', color: 'var(--stone)' }}>
           <p>© {new Date().getFullYear()} {DOCTOR.name}. All rights reserved.</p>
-          <p>Medical information on this site is for educational purposes only and does not constitute medical advice.</p>
+          <p>Content on this site is for educational purposes only and is not a substitute for professional medical advice.</p>
         </div>
       </div>
     </footer>

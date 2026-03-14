@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
-import { Navbar } from '@/components/layout/Navbar'
-import { Footer } from '@/components/layout/Footer'
 import { Toaster } from 'sonner'
 import { QueryProvider } from '@/components/providers/QueryProvider'
 import { SITE_URL } from '@/lib/config'
@@ -62,7 +60,6 @@ export const metadata: Metadata = {
     images: ['/opengraph-image'],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
-  verification: { google: '' }, // add Search Console token when available
 }
 
 const personSchema = {
@@ -144,9 +141,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <QueryProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          {children}
           <Toaster position="bottom-right" richColors />
         </QueryProvider>
       </body>

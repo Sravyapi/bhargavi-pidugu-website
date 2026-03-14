@@ -8,7 +8,7 @@ type BlogPost = {
   id: string
   title: string
   slug: string
-  published: boolean
+  status: string
   published_at: string | null
   created_at: string
 }
@@ -21,16 +21,17 @@ export default function AdminBlogPage() {
     queryFn: async () => {
       const res = await fetch('/api/admin/blog')
       if (!res.ok) throw new Error('Failed')
-      return res.json()
+      const json = await res.json()
+      return json.data ?? []
     },
   })
 
   const toggleMutation = useMutation({
-    mutationFn: async ({ id, published }: { id: string; published: boolean }) => {
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
       const res = await fetch(`/api/admin/blog/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ published }),
+        body: JSON.stringify({ status }),
       })
       if (!res.ok) throw new Error('Failed')
     },
@@ -89,12 +90,12 @@ export default function AdminBlogPage() {
                   </td>
                   <td className="p-4">
                     <button
-                      onClick={() => toggleMutation.mutate({ id: post.id, published: !post.published })}
+                      onClick={() => toggleMutation.mutate({ id: post.id, status: post.status === 'published' ? 'draft' : 'published' })}
                       className="flex items-center gap-1.5 text-xs font-medium transition-colors"
-                      style={{ color: post.published ? 'var(--sage-dark)' : 'var(--stone)' }}
+                      style={{ color: post.status === 'published' ? 'var(--sage-dark)' : 'var(--stone)' }}
                     >
-                      {post.published ? <Eye size={12} /> : <EyeOff size={12} />}
-                      {post.published ? 'Published' : 'Draft'}
+                      {post.status === 'published' ? <Eye size={12} /> : <EyeOff size={12} />}
+                      {post.status === 'published' ? 'Published' : 'Draft'}
                     </button>
                   </td>
                   <td className="p-4">

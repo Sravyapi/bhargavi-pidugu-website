@@ -67,7 +67,7 @@ export function WaitlistPage() {
               <em style={{ color: 'var(--terracotta)' }}>opening soon</em>
             </h1>
             <p className="text-base" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal-light)' }}>
-              Online consultations are launching <strong>post-June 2026</strong>, once Dr. Bhargavi completes her fellowship at LV Prasad Eye Institute.
+              Online consultations will open <strong>post-June 2026</strong>, once Dr. Bhargavi completes her fellowship at LV Prasad Eye Institute. Join the waitlist to be first in line.
             </p>
             <div
               className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm"
@@ -93,7 +93,7 @@ export function WaitlistPage() {
             <div className="card-warm p-6 md:p-8">
               <h2 className="heading-card mb-2">Join the waitlist</h2>
               <p className="text-sm mb-6" style={{ fontFamily: 'var(--font-ui)', color: 'var(--stone)' }}>
-                Be the first to know when online consultations become available.
+                Leave your details and we&apos;ll reach out as soon as online appointments open.
               </p>
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

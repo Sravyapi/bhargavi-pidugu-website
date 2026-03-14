@@ -1,13 +1,4 @@
-import { emailBase, h1Style, pStyle, labelStyle, valueStyle } from './base'
-
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
-}
+import { emailBase, h1Style, pStyle, labelStyle, valueStyle, escapeHtml } from './base'
 
 export function contactConfirmationPatient(name: string): string {
   const safeName = escapeHtml(name)

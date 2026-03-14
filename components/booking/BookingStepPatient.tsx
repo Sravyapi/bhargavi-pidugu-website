@@ -122,11 +122,11 @@ export function BookingStepPatient({
           </div>
         )}
 
-        <div className="flex gap-3">
-          <button type="button" onClick={onBack} className="btn-secondary">
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button type="button" onClick={onBack} className="btn-secondary w-full sm:w-auto justify-center">
             <ChevronLeft size={16} /> Back
           </button>
-          <button type="submit" className="btn-primary">
+          <button type="submit" className="btn-primary w-full sm:w-auto justify-center">
             Review Details <ChevronRight size={16} />
           </button>
         </div>

@@ -56,13 +56,13 @@ export default function AboutPage() {
               className="text-lg leading-relaxed mb-5"
               style={{ fontFamily: 'var(--font-body)', color: 'var(--charcoal-light)' }}
             >
-              Dr. Bhargavi Pidugu is a subspecialty-trained ophthalmologist completing a three-year fellowship in Paediatric Ophthalmology, Neuro-Ophthalmology, and Strabismus at LV Prasad Eye Institute — Asia&apos;s foremost tertiary eye care centre — under Drs. Ramesh Kekunnaya and Goura Chattannavar.
+              Dr. Bhargavi Pidugu is a subspecialty-trained ophthalmologist completing a three-year fellowship in Paediatric Ophthalmology, Neuro-Ophthalmology, and Strabismus at LV Prasad Eye Institute — Asia&apos;s foremost tertiary eye care centre — under the mentorship of Drs. Ramesh Kekunnaya and Goura Chattannavar.
             </p>
             <p
               className="text-lg leading-relaxed"
               style={{ fontFamily: 'var(--font-body)', color: 'var(--charcoal-light)' }}
             >
-              With an independent surgical record of 1,500+ cataract and 150+ strabismus procedures across six years of clinical practice, she has presented original research at national and international conferences including two oral presentations at APAO Hong Kong 2026.
+              Over six years of clinical practice, she has performed 1,500+ independent cataract and 150+ strabismus procedures — and presented original research at national and international conferences, including two oral presentations at APAO Hong Kong 2026.
             </p>
           </AnimatedSection>
         </div>
@@ -84,7 +84,7 @@ export default function AboutPage() {
       <section className="section-padding">
         <div className="container-site">
           <AnimatedSection>
-            <SectionHeader label="Career Journey" title="Built across high-volume settings" />
+            <SectionHeader label="Career Journey" title="Forged across high-volume clinical settings" />
           </AnimatedSection>
           <CareerTimeline />
         </div>
@@ -94,7 +94,7 @@ export default function AboutPage() {
       <section className="section-padding" style={{ background: 'var(--surface)' }}>
         <div className="container-site max-w-2xl">
           <AnimatedSection>
-            <SectionHeader label="Education" title="Foundation of expertise" />
+            <SectionHeader label="Education" title="The foundation" />
             <div className="space-y-4">
               {[
                 { degree: 'MS Ophthalmology', inst: 'Regional Eye Hospital, Kakatiya Medical College, Warangal', year: '2016–2019' },

@@ -105,14 +105,14 @@ export function BookingStepDateTime({
         </div>
       )}
 
-      <div className="flex gap-3 mt-8">
-        <button onClick={onBack} className="btn-secondary">
+      <div className="flex flex-col sm:flex-row gap-3 mt-8">
+        <button onClick={onBack} className="btn-secondary w-full sm:w-auto justify-center">
           <ChevronLeft size={16} /> Back
         </button>
         <button
           disabled={!selectedDate || !selectedTime}
           onClick={onContinue}
-          className="btn-primary"
+          className="btn-primary w-full sm:w-auto justify-center"
         >
           Continue <ChevronRight size={16} />
         </button>
