@@ -65,20 +65,11 @@ export function AboutTeaser() {
               <p>
                 With over <strong style={{ color: 'var(--charcoal)' }}>1,500 independent cataract</strong> and <strong style={{ color: 'var(--charcoal)' }}>150+ strabismus surgeries</strong>, she brings technical precision to every case — and genuine warmth to every family.
               </p>
+              <p>Her approach: listen carefully, explain clearly, treat gently — every time.</p>
             </div>
           </AnimatedSection>
 
-          {/* Quote */}
           <AnimatedSection delay={0.2}>
-            <blockquote
-              className="pl-4 py-1 text-sm italic"
-              style={{ borderLeft: '3px solid var(--terracotta)', color: 'var(--stone)', fontFamily: 'var(--font-body)' }}
-            >
-              &ldquo;She gives candies to children after every exam — and presents her research at international conferences.&rdquo;
-            </blockquote>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.25}>
             <Link href="/about" className="btn-primary self-start inline-flex items-center gap-2 group text-sm py-2.5 px-5">
               Read Full Bio
               <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -136,14 +127,6 @@ export function AboutTeaser() {
               </div>
             </AnimatedSection>
             <AnimatedSection delay={0.4}>
-              <div className="flex flex-col gap-1">
-                <div className="text-6xl leading-none font-bold opacity-20 -mb-2" style={{ color: 'var(--terracotta)', fontFamily: 'var(--font-display)' }} aria-hidden="true">&ldquo;</div>
-                <blockquote className="pl-4 py-1 text-base italic" style={{ borderLeft: '3px solid var(--terracotta)', color: 'var(--stone)', fontFamily: 'var(--font-body)' }}>
-                  &ldquo;She gives candies to children after every exam — and presents her research at international conferences. Both feel equally natural to her.&rdquo;
-                </blockquote>
-              </div>
-            </AnimatedSection>
-            <AnimatedSection delay={0.5}>
               <Link href="/about" className="btn-primary self-start inline-flex items-center gap-2 group">
                 Read Full Bio
                 <span className="transition-transform group-hover:translate-x-1">→</span>
