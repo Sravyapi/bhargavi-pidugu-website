@@ -17,7 +17,7 @@ export function DownloadCVButton() {
       a.href = url
       a.download = 'Dr_Bhargavi_Pidugu_CV.pdf'
       a.click()
-      URL.revokeObjectURL(url)
+      setTimeout(() => URL.revokeObjectURL(url), 10000)
       toast.success('CV downloaded successfully')
     } catch {
       toast.error('Could not download CV. Please try again.')

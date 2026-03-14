@@ -67,7 +67,7 @@ export function WaitlistPage() {
               <em style={{ color: 'var(--terracotta)' }}>opening soon</em>
             </h1>
             <p className="text-base" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal-light)' }}>
-              Online consultations will open <strong>post-June 2026</strong>, once Dr. Bhargavi completes her fellowship at LV Prasad Eye Institute. Join the waitlist to be first in line.
+              Online consultations will open <strong>soon</strong>, once Dr. Bhargavi completes her fellowship at LV Prasad Eye Institute. Join the waitlist to be first in line.
             </p>
             <div
               className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm"

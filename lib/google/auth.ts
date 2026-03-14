@@ -8,7 +8,13 @@ export const GOOGLE_SCOPES = [
   'https://www.googleapis.com/auth/calendar.freebusy',
 ].join(' ')
 
-export function getGoogleAuthUrl(): string {
+export function generateOAuthState(): string {
+  const array = new Uint8Array(32)
+  crypto.getRandomValues(array)
+  return Array.from(array, b => b.toString(16).padStart(2, '0')).join('')
+}
+
+export function getGoogleAuthUrl(state: string): string {
   const params = new URLSearchParams({
     client_id: process.env.GOOGLE_CLIENT_ID!,
     redirect_uri: process.env.GOOGLE_REDIRECT_URI!,
@@ -16,6 +22,7 @@ export function getGoogleAuthUrl(): string {
     scope: GOOGLE_SCOPES,
     access_type: 'offline',
     prompt: 'consent',
+    state,
   })
   return `${GOOGLE_AUTH_URL}?${params.toString()}`
 }

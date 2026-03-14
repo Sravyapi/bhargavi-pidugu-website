@@ -21,6 +21,11 @@ export async function middleware(request: NextRequest) {
     }
   )
 
+  const ADMIN_EMAILS: string[] = [
+    process.env.ADMIN_NOTIFICATION_EMAIL ?? 'dr.bhargavipidugu@gmail.com',
+    'sravyapidugu@gmail.com',
+  ]
+
   const { data: { user } } = await supabase.auth.getUser()
 
   // Protect all /admin routes except /admin/login
@@ -28,7 +33,7 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith('/admin') &&
     !request.nextUrl.pathname.startsWith('/admin/login')
   ) {
-    if (!user) {
+    if (!user || !user.email || !ADMIN_EMAILS.includes(user.email)) {
       const url = request.nextUrl.clone()
       url.pathname = '/admin/login'
       url.searchParams.set('redirectedFrom', request.nextUrl.pathname)
@@ -36,8 +41,8 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Redirect authenticated user away from login page
-  if (request.nextUrl.pathname === '/admin/login' && user) {
+  // Redirect authenticated admin user away from login page
+  if (request.nextUrl.pathname === '/admin/login' && user && user.email && ADMIN_EMAILS.includes(user.email)) {
     const url = request.nextUrl.clone()
     url.pathname = '/admin'
     return NextResponse.redirect(url)

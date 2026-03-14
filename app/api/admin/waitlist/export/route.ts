@@ -14,10 +14,21 @@ export async function GET(request: NextRequest) {
 
     if (error) throw error
 
+    // Escape CSV fields to prevent formula injection
+    function escapeCsvField(value: string): string {
+      // Double any embedded quotes
+      let escaped = value.replace(/"/g, '""')
+      // Prefix dangerous characters to prevent formula injection
+      if (/^[=+\-@\t\r]/.test(escaped)) {
+        escaped = "'" + escaped
+      }
+      return `"${escaped}"`
+    }
+
     const header = 'Name,Email,Notified At,Joined At\n'
     const rows = (data || [])
       .map((entry: { name: string; email: string; notified_at: string | null; created_at: string }) =>
-        `"${entry.name}","${entry.email}","${entry.notified_at || ''}","${entry.created_at}"`
+        `${escapeCsvField(entry.name)},${escapeCsvField(entry.email)},${escapeCsvField(entry.notified_at || '')},${escapeCsvField(entry.created_at)}`
       )
       .join('\n')
 

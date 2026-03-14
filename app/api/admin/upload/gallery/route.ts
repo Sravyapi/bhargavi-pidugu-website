@@ -24,11 +24,12 @@ export async function POST(request: NextRequest) {
     let orderIndex = (existing?.[0]?.order_index ?? -1) + 1
 
     const uploaded = []
+    const skipped: { name: string; reason: string }[] = []
 
     for (const file of files.slice(0, FILE_UPLOAD.GALLERY_MAX_COUNT)) {
-      if (!(file instanceof File)) continue
-      if (!file.type.startsWith('image/')) continue
-      if (file.size > FILE_UPLOAD.GALLERY_MAX_SIZE_BYTES) continue
+      if (!(file instanceof File)) { skipped.push({ name: 'unknown', reason: 'Not a valid file' }); continue }
+      if (!file.type.startsWith('image/')) { skipped.push({ name: file.name, reason: 'Not an image file' }); continue }
+      if (file.size > FILE_UPLOAD.GALLERY_MAX_SIZE_BYTES) { skipped.push({ name: file.name, reason: 'File exceeds maximum size' }); continue }
 
       const ext = file.name.split('.').pop() || 'jpg'
       const storagePath = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
@@ -58,7 +59,7 @@ export async function POST(request: NextRequest) {
       if (!dbError && imageRecord) uploaded.push(imageRecord)
     }
 
-    return NextResponse.json({ success: true, data: { images: uploaded } })
+    return NextResponse.json({ success: true, data: { images: uploaded }, skipped })
   } catch (error) {
     if (error instanceof UnauthorizedError) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })

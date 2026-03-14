@@ -1,6 +1,6 @@
 export function PaediatricEyeIllustration({ accent, muted }: { accent: string; muted: string }) {
   return (
-    <svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" role="img" aria-hidden="true">
       {/* Subtle dot grid */}
       {[30, 60, 90, 120, 150, 170].map(x =>
         [25, 55, 85, 115].map(y => (
@@ -70,7 +70,7 @@ export function PaediatricEyeIllustration({ accent, muted }: { accent: string; m
 
 export function ForParentsIllustration({ accent, muted }: { accent: string; muted: string }) {
   return (
-    <svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" role="img" aria-hidden="true">
       {/* Background circles */}
       <circle cx="100" cy="70" r="55" fill={muted} opacity="0.1" />
       <circle cx="100" cy="70" r="40" fill={muted} opacity="0.1" />
@@ -118,7 +118,7 @@ export function ForParentsIllustration({ accent, muted }: { accent: string; mute
 
 export function StrabismusIllustration({ accent, muted }: { accent: string; muted: string }) {
   return (
-    <svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" role="img" aria-hidden="true">
       {/* Grid lines */}
       <line x1="100" y1="10" x2="100" y2="130" stroke={muted} strokeWidth="0.5" opacity="0.3" strokeDasharray="3 4"/>
       <line x1="10" y1="70" x2="190" y2="70" stroke={muted} strokeWidth="0.5" opacity="0.3" strokeDasharray="3 4"/>
@@ -155,7 +155,7 @@ export function StrabismusIllustration({ accent, muted }: { accent: string; mute
 
 export function NeuroOphthalmologyIllustration({ accent, muted }: { accent: string; muted: string }) {
   return (
-    <svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" role="img" aria-hidden="true">
       {/* Brain outline — simplified */}
       <path
         d="M100 25 C88 22, 74 26, 68 36 C62 46, 64 54, 60 60
@@ -197,7 +197,7 @@ export function NeuroOphthalmologyIllustration({ accent, muted }: { accent: stri
 
 export function GeneralEyeCareIllustration({ accent, muted }: { accent: string; muted: string }) {
   return (
-    <svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" role="img" aria-hidden="true">
       {/* Radiating lines */}
       {Array.from({ length: 12 }, (_, i) => {
         const angle = (i * 30 * Math.PI) / 180

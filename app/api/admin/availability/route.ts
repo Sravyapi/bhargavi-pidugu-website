@@ -38,8 +38,21 @@ export async function PATCH(request: NextRequest) {
     const { schedule, settings } = body
     const supabase = await createAdminClient()
 
+    const VALID_DAYS = [0, 1, 2, 3, 4, 5, 6]
+    const ALLOWED_DAY_FIELDS = ['day_of_week', 'is_active', 'start_time', 'end_time']
+    const ALLOWED_SETTING_KEYS = ['appointment_duration_minutes', 'buffer_minutes', 'advance_booking_days']
+
     if (schedule && Array.isArray(schedule)) {
       for (const day of schedule) {
+        // Validate day_of_week
+        if (!VALID_DAYS.includes(day.day_of_week)) {
+          return NextResponse.json({ error: `Invalid day_of_week: ${day.day_of_week}` }, { status: 400 })
+        }
+        // Reject unknown keys
+        const unknownKeys = Object.keys(day).filter(k => !ALLOWED_DAY_FIELDS.includes(k))
+        if (unknownKeys.length > 0) {
+          return NextResponse.json({ error: `Unknown schedule fields: ${unknownKeys.join(', ')}` }, { status: 400 })
+        }
         await supabase
           .from('availability_schedule')
           .update(day)
@@ -48,6 +61,10 @@ export async function PATCH(request: NextRequest) {
     }
 
     if (settings && typeof settings === 'object') {
+      const unknownSettings = Object.keys(settings).filter(k => !ALLOWED_SETTING_KEYS.includes(k))
+      if (unknownSettings.length > 0) {
+        return NextResponse.json({ error: `Unknown settings: ${unknownSettings.join(', ')}` }, { status: 400 })
+      }
       for (const [key, value] of Object.entries(settings)) {
         await supabase
           .from('site_content')

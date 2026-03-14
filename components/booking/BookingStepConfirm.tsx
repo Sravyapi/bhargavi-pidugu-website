@@ -1,13 +1,7 @@
 'use client'
 import { ChevronLeft, Calendar, Loader2 } from 'lucide-react'
 import type { BookingStep3Input } from '@/lib/validations'
-
-const CONSULTATION_TYPES = [
-  {
-    id: 'online_video',
-    title: 'Online Video Call',
-  },
-]
+import { CONSULTATION_TYPES } from '@/lib/constants'
 
 interface BookingStepConfirmProps {
   bookingType: string

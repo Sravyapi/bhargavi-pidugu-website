@@ -128,9 +128,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           {/* Cover */}
           {post.cover_image_url && (
             <div
-              className="w-full h-48 sm:h-72 rounded-2xl mb-8 overflow-hidden"
+              className="relative w-full h-48 sm:h-72 rounded-2xl mb-8 overflow-hidden"
               style={{ background: 'var(--warm-beige)' }}
-            />
+            >
+              <img
+                src={post.cover_image_url}
+                alt={post.title ?? 'Blog post cover image'}
+                className="w-full h-full object-cover"
+              />
+            </div>
           )}
 
           <div className="flex items-center gap-4 mb-4 text-xs" style={{ fontFamily: 'var(--font-ui)', color: 'var(--stone)' }}>

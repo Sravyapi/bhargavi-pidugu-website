@@ -44,19 +44,24 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       .update({ status: 'cancelled', cancellation_email_sent: true, updated_at: new Date().toISOString() })
       .eq('id', id)
 
-    // Send cancellation email
-    const resend = getResend()
-    await resend.emails.send({
-      from: FROM_EMAIL,
-      to: appointment.contact_email,
-      subject: 'Appointment cancelled — Dr. Bhargavi Pidugu',
-      html: bookingCancellationPatient({
-        patientName: appointment.patient_name,
-        contactName: appointment.patient_name,
-        slotDatetime: appointment.slot_datetime,
-        customMessage,
-      }),
-    })
+    // Send cancellation email (don't roll back DB cancellation if email fails)
+    try {
+      const resend = getResend()
+      await resend.emails.send({
+        from: FROM_EMAIL,
+        to: appointment.contact_email,
+        subject: 'Appointment cancelled — Dr. Bhargavi Pidugu',
+        html: bookingCancellationPatient({
+          patientName: appointment.patient_name,
+          contactName: appointment.patient_name,
+          slotDatetime: appointment.slot_datetime,
+          customMessage,
+        }),
+      })
+    } catch (emailError) {
+      console.error('[cancel] Failed to send cancellation email:', emailError)
+      // DB cancellation already committed; email failure is non-fatal
+    }
 
     return NextResponse.json({ success: true })
   } catch (error) {

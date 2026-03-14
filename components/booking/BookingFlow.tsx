@@ -3,22 +3,15 @@ import { useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
-import { Video, Check } from 'lucide-react'
+import { Video, Check, CalendarPlus } from 'lucide-react'
 import { BookingStep3Schema, type BookingStep3Input } from '@/lib/validations'
 import type { TimeSlot } from '@/lib/types'
 import { apiFetch, ApiError } from '@/lib/api-client'
-import { IST_OFFSET_MS } from '@/lib/constants'
+import { IST_OFFSET_MS, CONSULTATION_TYPES } from '@/lib/constants'
 import { BookingStepType } from './BookingStepType'
 import { BookingStepDateTime } from './BookingStepDateTime'
 import { BookingStepPatient } from './BookingStepPatient'
 import { BookingStepConfirm } from './BookingStepConfirm'
-
-const CONSULTATION_TYPES = [
-  {
-    id: 'online_video',
-    title: 'Online Video Call',
-  },
-]
 
 const STEP_LABELS = ['Consultation Type', 'Date & Time', 'Patient Details', 'Confirm']
 
@@ -37,7 +30,7 @@ export function BookingFlow() {
   const [confirming, setConfirming] = useState(false)
   const [confirmation, setConfirmation] = useState<{ id: string; meet_link?: string } | null>(null)
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<BookingStep3Input>({
+  const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<BookingStep3Input>({
     resolver: zodResolver(BookingStep3Schema),
     defaultValues: {
       whatsapp_preferred: false,
@@ -70,6 +63,14 @@ export function BookingFlow() {
       setLoadingSlots(false)
     }
   }, [])
+
+  const handleBookAnother = () => {
+    reset()
+    setBooking({ type: '', date: '', time: '', patient: null })
+    setAvailableSlots([])
+    setConfirmation(null)
+    setStep(1)
+  }
 
   const handleTypeSelect = (typeId: string) => {
     setBooking(prev => ({ ...prev, type: typeId }))
@@ -154,9 +155,12 @@ export function BookingFlow() {
                 </a>
               )}
             </div>
-            <p className="text-xs" style={{ fontFamily: 'var(--font-ui)', color: 'var(--stone)' }}>
+            <p className="text-xs mb-6" style={{ fontFamily: 'var(--font-ui)', color: 'var(--stone)' }}>
               A confirmation email has been sent. You&apos;ll receive a reminder 24 hours before your appointment.
             </p>
+            <button onClick={handleBookAnother} className="btn-secondary justify-center">
+              <CalendarPlus size={16} /> Book Another Appointment
+            </button>
           </div>
         </div>
       </div>
@@ -181,7 +185,7 @@ export function BookingFlow() {
                 >
                   {step > i + 1 ? <Check size={14} /> : i + 1}
                 </div>
-                <span className="text-xs mt-1 hidden sm:block" style={{ fontFamily: 'var(--font-ui)', color: step === i + 1 ? 'var(--terracotta)' : 'var(--stone)' }}>
+                <span className="text-[0.6rem] sm:text-xs mt-1 block" style={{ fontFamily: 'var(--font-ui)', color: step === i + 1 ? 'var(--terracotta)' : 'var(--stone)' }}>
                   {label}
                 </span>
               </div>

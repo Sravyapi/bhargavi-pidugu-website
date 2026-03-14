@@ -29,8 +29,7 @@ export function generateSlots(
   const slots: TimeSlot[] = []
   let current = startTime
 
-  while (isBefore(addMinutes(current, durationMinutes), endTime) ||
-         current.getTime() + durationMinutes * 60000 <= endTime.getTime()) {
+  while (current.getTime() + durationMinutes * 60000 <= endTime.getTime()) {
     const slotEnd = addMinutes(current, durationMinutes)
 
     // Skip if in lunch break

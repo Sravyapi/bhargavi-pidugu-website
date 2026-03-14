@@ -23,9 +23,9 @@ export function HeroSection() {
       />
 
       {/* Floating geometric accents — desktop only */}
-      <motion.div className="hidden md:block absolute top-20 right-[10%] w-8 h-8 rounded-full border-2 border-[var(--terracotta)] opacity-40" animate={{ y: [0, -12, 0], rotate: [0, 90, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} />
-      <motion.div className="hidden md:block absolute bottom-32 right-[20%] w-4 h-4 rounded-sm bg-[var(--sage)] opacity-50" animate={{ y: [0, 10, 0], rotate: [0, -45, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }} />
-      <motion.div className="hidden md:block absolute top-1/3 left-[5%] w-5 h-5 rounded-full bg-[var(--terracotta)] opacity-25" animate={{ y: [0, -8, 0], x: [0, 6, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 2 }} />
+      <motion.div className="hidden md:block absolute top-20 right-[10%] w-8 h-8 rounded-full border-2 border-[var(--terracotta)] opacity-40" aria-hidden="true" animate={{ y: [0, -12, 0], rotate: [0, 90, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} />
+      <motion.div className="hidden md:block absolute bottom-32 right-[20%] w-4 h-4 rounded-sm bg-[var(--sage)] opacity-50" aria-hidden="true" animate={{ y: [0, 10, 0], rotate: [0, -45, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }} />
+      <motion.div className="hidden md:block absolute top-1/3 left-[5%] w-5 h-5 rounded-full bg-[var(--terracotta)] opacity-25" aria-hidden="true" animate={{ y: [0, -8, 0], x: [0, 6, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 2 }} />
 
       {/* ── Main content ── */}
       <div className="container-site relative z-10 w-full">

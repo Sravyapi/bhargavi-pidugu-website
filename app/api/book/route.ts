@@ -85,6 +85,22 @@ export async function POST(request: NextRequest) {
 
     if (insertError) throw insertError
 
+    // Re-check for duplicate bookings (race condition guard)
+    const { data: duplicates } = await supabase
+      .from('appointments')
+      .select('id')
+      .eq('slot_datetime', slotDatetime)
+      .neq('status', 'cancelled')
+
+    if (duplicates && duplicates.length > 1) {
+      // Another booking was inserted concurrently — cancel ours
+      await supabase.from('appointments').delete().eq('id', appointment.id)
+      return NextResponse.json(
+        { success: false, error: 'This slot is no longer available. Please choose another.' },
+        { status: 409 }
+      )
+    }
+
     let meetLink = ''
     let calendarEventId = ''
 
@@ -139,13 +155,19 @@ export async function POST(request: NextRequest) {
         .eq('id', appointment.id)
     }
 
+    // Determine final status for email messaging
+    const finalStatus = meetLink ? 'confirmed' : 'pending'
+    const patientSubject = finalStatus === 'confirmed'
+      ? 'Your appointment is confirmed — Dr. Bhargavi Pidugu'
+      : 'Your appointment request has been received — Dr. Bhargavi Pidugu'
+
     // Send emails
     const resend = getResend()
     const emailResults = await Promise.allSettled([
       resend.emails.send({
         from: FROM_EMAIL,
         to: result.data.contact_email,
-        subject: 'Your appointment is confirmed — Dr. Bhargavi Pidugu',
+        subject: patientSubject,
         html: bookingConfirmationPatient({
           patientName: result.data.patient_name,
           contactName: result.data.patient_name,

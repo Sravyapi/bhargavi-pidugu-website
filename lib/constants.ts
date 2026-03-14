@@ -30,3 +30,12 @@ export const BOOKING_LIMITS = {
 } as const
 
 export const IST_OFFSET_MS = 19800000 // UTC+5:30 in milliseconds
+
+export const CONSULTATION_TYPES = [
+  {
+    id: 'online_video',
+    title: 'Online Video Call',
+    desc: 'Face-to-face consultation via Google Meet. Best for assessments requiring visual examination.',
+    duration: '30 min',
+  },
+] as const

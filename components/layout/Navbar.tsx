@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Menu, X, Info, Stethoscope, BookOpen, FlaskConical, Phone, CalendarCheck } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -15,6 +15,15 @@ const NAV_LINKS = [
 export function Navbar() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+
+  const handleEscape = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape' && open) setOpen(false)
+  }, [open])
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [handleEscape])
 
   return (
     <header

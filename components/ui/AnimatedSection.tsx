@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
 
 type Direction = 'up' | 'down' | 'left' | 'right' | 'none' | 'scale' | 'blur'
 
@@ -46,6 +46,11 @@ export function AnimatedSection({
 }: AnimatedSectionProps) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once, margin: '-60px' })
+  const prefersReducedMotion = useReducedMotion()
+
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>
+  }
 
   return (
     <motion.div

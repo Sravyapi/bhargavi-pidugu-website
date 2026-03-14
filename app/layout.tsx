@@ -98,7 +98,7 @@ const personSchema = {
   ],
   medicalSpecialty: ['Ophthalmology', 'Paediatric Ophthalmology', 'Neuro-Ophthalmology'],
   knowsAbout: ['Strabismus', 'Paediatric Cataract', 'Amblyopia', 'Nystagmus', 'Optic Neuritis', 'Retinopathy of Prematurity'],
-  sameAs: [],
+  sameAs: ['https://www.linkedin.com/in/dr-bhargavi-pidugu'],
 }
 
 const organizationSchema = {
@@ -144,6 +144,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded">Skip to main content</a>
         <QueryProvider>
           {children}
           <Toaster position="bottom-right" richColors />

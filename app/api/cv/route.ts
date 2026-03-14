@@ -4,9 +4,15 @@ export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 // Simple in-memory IP rate limit: max 5 downloads per IP per hour
+// NOTE: In-memory rate limiting is ineffective in serverless environments
+// where each invocation may use a different instance. Kept as best-effort.
 const cvRateMap = new Map<string, number[]>()
 
 function isRateLimited(ip: string): boolean {
+  // Cap map size to prevent unbounded memory growth
+  if (cvRateMap.size > 10000) {
+    cvRateMap.clear()
+  }
   const now = Date.now()
   const cutoff = now - 60 * 60 * 1000
   const hits = (cvRateMap.get(ip) ?? []).filter(t => t > cutoff)

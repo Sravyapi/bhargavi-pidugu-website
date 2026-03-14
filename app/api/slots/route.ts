@@ -2,8 +2,14 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
 
 // Simple in-memory IP rate limit: max 60 slot requests per IP per hour
+// NOTE: In-memory rate limiting is ineffective in serverless environments
+// where each invocation may use a different instance. Kept as best-effort.
 const slotsRateMap = new Map<string, number[]>()
 function isSlotsRateLimited(ip: string): boolean {
+  // Cap map size to prevent unbounded memory growth
+  if (slotsRateMap.size > 10000) {
+    slotsRateMap.clear()
+  }
   const now = Date.now()
   const cutoff = now - 60 * 60 * 1000
   const hits = (slotsRateMap.get(ip) ?? []).filter(t => t > cutoff)

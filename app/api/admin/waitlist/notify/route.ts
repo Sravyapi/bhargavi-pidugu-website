@@ -3,6 +3,15 @@ import { createAdminClient } from '@/lib/supabase/server'
 import { requireAuth, UnauthorizedError } from '@/lib/auth-utils'
 import { getResend, FROM_EMAIL } from '@/lib/email/resend'
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 export async function POST(request: NextRequest) {
   try {
     await requireAuth()
@@ -35,7 +44,7 @@ export async function POST(request: NextRequest) {
           from: FROM_EMAIL,
           to: entry.email,
           subject,
-          html: `<p>Dear ${entry.name},</p><p>${message}</p><p>— Dr. Bhargavi Pidugu</p>`,
+          html: `<p>Dear ${escapeHtml(entry.name)},</p><p>${escapeHtml(message)}</p><p>— Dr. Bhargavi Pidugu</p>`,
         })
         return entry.id
       })

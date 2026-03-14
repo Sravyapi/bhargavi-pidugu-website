@@ -25,7 +25,11 @@ const CountUp = memo(function CountUp({ target, suffix = '', duration = 1800 }: 
     requestAnimationFrame(animate)
   }, [inView, target, duration])
 
-  return <span ref={ref}>{count.toLocaleString()}{suffix}</span>
+  return (
+    <span ref={ref} aria-label={`${target.toLocaleString()}${suffix}`}>
+      <span aria-hidden="true">{count.toLocaleString()}{suffix}</span>
+    </span>
+  )
 })
 
 const stats = [

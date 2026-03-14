@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { name, email } = result.data
+    const { name, email, phone, message } = result.data
     const supabase = await createAdminClient()
 
     // Rate limit: max 3 attempts from same email per hour
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
 
     const { error } = await supabase
       .from('waitlist')
-      .upsert({ name, email }, { onConflict: 'email', ignoreDuplicates: true })
+      .upsert({ name, email, ...(phone ? { phone } : {}), ...(message ? { message } : {}) }, { onConflict: 'email', ignoreDuplicates: true })
 
     if (error) throw error
 

@@ -68,43 +68,44 @@ export function ContactForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-medium mb-1.5" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal)' }}>
+          <label htmlFor="contact-name" className="block text-xs font-medium mb-1.5" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal)' }}>
             Full Name *
           </label>
-          <input {...register('name')} placeholder="Your name" className="field-base" />
+          <input id="contact-name" {...register('name')} placeholder="Your name" className="field-base" />
           {errors.name && <p className="text-xs mt-1" style={{ color: 'var(--terracotta)' }}>{errors.name.message}</p>}
         </div>
         <div>
-          <label className="block text-xs font-medium mb-1.5" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal)' }}>
+          <label htmlFor="contact-phone" className="block text-xs font-medium mb-1.5" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal)' }}>
             Phone Number *
           </label>
-          <input {...register('phone')} placeholder="10-digit mobile" className="field-base" type="tel" />
+          <input id="contact-phone" {...register('phone')} placeholder="10-digit mobile" className="field-base" type="tel" />
           {errors.phone && <p className="text-xs mt-1" style={{ color: 'var(--terracotta)' }}>{errors.phone.message}</p>}
         </div>
       </div>
 
       <div>
-        <label className="block text-xs font-medium mb-1.5" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal)' }}>
+        <label htmlFor="contact-email" className="block text-xs font-medium mb-1.5" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal)' }}>
           Email Address *
         </label>
-        <input {...register('email')} placeholder="your@email.com" className="field-base" type="email" />
+        <input id="contact-email" {...register('email')} placeholder="your@email.com" className="field-base" type="email" />
         {errors.email && <p className="text-xs mt-1" style={{ color: 'var(--terracotta)' }}>{errors.email.message}</p>}
       </div>
 
       <div>
-        <label className="block text-xs font-medium mb-1.5" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal)' }}>
+        <label htmlFor="contact-reason" className="block text-xs font-medium mb-1.5" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal)' }}>
           Reason for Contact *
         </label>
-        <select {...register('reason')} className="field-base">
+        <select id="contact-reason" {...register('reason')} className="field-base">
           {REASONS.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
         </select>
       </div>
 
       <div>
-        <label className="block text-xs font-medium mb-1.5" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal)' }}>
+        <label htmlFor="contact-message" className="block text-xs font-medium mb-1.5" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal)' }}>
           Message *
         </label>
         <textarea
+          id="contact-message"
           {...register('message')}
           rows={4}
           placeholder="Describe your query or concern…"

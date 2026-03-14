@@ -78,7 +78,7 @@ export function CTABanner() {
           <div className="flex flex-wrap justify-center gap-8">
             {[
               'Fellowship-trained at LV Prasad Eye Institute',
-              'Online consultations · post-June 2026',
+              'Online consultations · coming soon',
               '1,500+ independent surgeries',
             ].map((t, i) => (
               <div key={i} className="flex items-center gap-2 text-white/60 text-xs uppercase tracking-widest" style={{ fontFamily: 'var(--font-ui)' }}>

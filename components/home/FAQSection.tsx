@@ -68,6 +68,7 @@ const FAQItem = memo(function FAQItem({
           className="w-full flex items-start gap-4 p-5 lg:p-6 text-left group"
           onClick={() => onToggle(index)}
           aria-expanded={isOpen}
+          aria-controls={`faq-panel-${index}`}
         >
           {/* Number */}
           <span
@@ -106,6 +107,7 @@ const FAQItem = memo(function FAQItem({
           {isOpen && (
             <motion.div
               key="answer"
+              id={`faq-panel-${index}`}
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}

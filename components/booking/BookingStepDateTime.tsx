@@ -56,6 +56,7 @@ export function BookingStepDateTime({
               key={dateStr}
               disabled={isWeekend}
               onClick={() => onDateSelect(dateStr)}
+              aria-label={format(d, 'EEEE, MMMM d, yyyy')}
               className="px-3 py-2 rounded-lg text-xs transition-all"
               style={{
                 fontFamily: 'var(--font-ui)',
@@ -84,12 +85,13 @@ export function BookingStepDateTime({
           ) : (
             <div className="flex gap-2 flex-wrap">
               {TIMES.map(t => {
-                const available = availableSlots.length === 0 || availableSet.has(t)
+                const available = availableSlots.length > 0 && availableSet.has(t)
                 return (
                   <button
                     key={t}
                     disabled={!available}
                     onClick={() => onTimeSelect(t)}
+                    aria-selected={selectedTime === t}
                     className="px-3 py-1.5 rounded-full text-xs font-medium transition-all"
                     style={{
                       fontFamily: 'var(--font-ui)',

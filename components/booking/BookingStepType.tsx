@@ -1,15 +1,10 @@
 'use client'
 import { Video } from 'lucide-react'
+import { CONSULTATION_TYPES } from '@/lib/constants'
 
-const CONSULTATION_TYPES = [
-  {
-    id: 'online_video',
-    icon: Video,
-    title: 'Online Video Call',
-    desc: 'Face-to-face consultation via Google Meet. Best for assessments requiring visual examination.',
-    duration: '30 min',
-  },
-]
+const CONSULTATION_TYPE_ICONS: Record<string, typeof Video> = {
+  online_video: Video,
+}
 
 interface BookingStepTypeProps {
   selectedType: string
@@ -25,7 +20,7 @@ export function BookingStepType({ selectedType, onSelect }: BookingStepTypeProps
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {CONSULTATION_TYPES.map(type => {
-          const Icon = type.icon
+          const Icon = CONSULTATION_TYPE_ICONS[type.id] ?? Video
           return (
             <button
               key={type.id}

@@ -17,13 +17,17 @@ export async function POST(request: NextRequest) {
     const supabase = await createAdminClient()
     const buffer = await file.arrayBuffer()
 
+    const extMap: Record<string, string> = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/gif': 'gif', 'image/svg+xml': 'svg' }
+    const ext = extMap[file.type] || 'jpg'
+    const filename = `hero.${ext}`
+
     const { error: uploadError } = await supabase.storage
       .from('hero')
-      .upload('hero.jpg', buffer, { contentType: file.type, upsert: true })
+      .upload(filename, buffer, { contentType: file.type, upsert: true })
 
     if (uploadError) throw uploadError
 
-    const { data: urlData } = supabase.storage.from('hero').getPublicUrl('hero.jpg')
+    const { data: urlData } = supabase.storage.from('hero').getPublicUrl(filename)
     const url = urlData.publicUrl + `?t=${Date.now()}`
 
     await supabase

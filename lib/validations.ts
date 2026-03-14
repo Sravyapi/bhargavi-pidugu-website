@@ -6,13 +6,15 @@ export const ContactFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters').max(100),
   phone: z.string().regex(phoneRegex, 'Please enter a valid Indian phone number'),
   email: z.string().email('Please enter a valid email address'),
-  reason: z.string().min(10, 'Please provide at least 10 characters').max(1000),
+  reason: z.string().min(1, 'Please select a reason for contact').max(1000),
 })
 export type ContactFormInput = z.infer<typeof ContactFormSchema>
 
 export const WaitlistSchema = z.object({
   name: z.string().min(2).max(100),
   email: z.string().email(),
+  phone: z.string().regex(/^[6-9]\d{9}$/, 'Enter a valid 10-digit Indian mobile number').optional(),
+  message: z.string().max(500).optional(),
 })
 export type WaitlistInput = z.infer<typeof WaitlistSchema>
 

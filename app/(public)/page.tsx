@@ -11,6 +11,7 @@ import { CTABanner } from '@/components/home/CTABanner'
 export const metadata: Metadata = {
   alternates: { canonical: SITE_URL },
   openGraph: { url: SITE_URL },
+  twitter: { card: 'summary_large_image' },
 }
 
 const faqSchema = {

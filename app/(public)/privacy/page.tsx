@@ -1,9 +1,14 @@
 import type { Metadata } from 'next'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
+import { SITE_URL, CONTACT } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description: 'Privacy policy for Dr. Bhargavi Pidugu website.',
+  alternates: { canonical: `${SITE_URL}/privacy` },
+  openGraph: {
+    url: `${SITE_URL}/privacy`,
+  },
 }
 
 export default function PrivacyPage() {
@@ -23,7 +28,7 @@ export default function PrivacyPage() {
           <AnimatedSection>
             <div className="prose-warm prose prose-stone" style={{ fontFamily: 'var(--font-body)', color: 'var(--charcoal-light)' }}>
               <p className="meta-text">
-                Last updated: {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
+                Last updated: March 14, 2026
               </p>
 
               <h2>1. What Data We Collect</h2>
@@ -73,7 +78,7 @@ export default function PrivacyPage() {
               </p>
               <p>
                 <strong>Dr. Bhargavi Pidugu</strong><br />
-                Email: <a href="mailto:dr.bhargavipidugu@gmail.com">dr.bhargavipidugu@gmail.com</a><br />
+                Email: <a href={CONTACT.emailHref}>{CONTACT.email}</a><br />
                 LV Prasad Eye Institute, Banjara Hills, Hyderabad
               </p>
 

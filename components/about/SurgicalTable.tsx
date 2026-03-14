@@ -34,6 +34,7 @@ export function SurgicalTable() {
       {/* Desktop: table */}
       <div className="hidden md:block card-warm overflow-hidden">
         <table className="w-full text-sm">
+          <caption className="sr-only">Surgical Experience Summary</caption>
           <thead>
             <tr style={{ background: 'var(--surface)' }}>
               <th

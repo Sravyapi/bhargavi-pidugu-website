@@ -269,6 +269,7 @@ export default function ExpertisePage() {
                               alt={`Clinical case ${i + 1}`}
                               fill
                               className="object-cover"
+                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                             />
                           </div>
                         ))}
@@ -298,6 +299,7 @@ export default function ExpertisePage() {
                               alt={`Clinical photograph ${i + 1}`}
                               fill
                               className="object-cover"
+                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                             />
                           </div>
                         ))}

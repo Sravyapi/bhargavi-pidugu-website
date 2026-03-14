@@ -17,7 +17,7 @@ export function AboutTeaser() {
       <div
         className="hidden md:block absolute right-0 top-0 text-[20rem] font-bold leading-none pointer-events-none select-none opacity-[0.03]"
         style={{ fontFamily: 'var(--font-display)', color: 'var(--terracotta)' }}
-        aria-hidden
+        aria-hidden="true"
       >
         6
       </div>
@@ -137,7 +137,7 @@ export function AboutTeaser() {
             </AnimatedSection>
             <AnimatedSection delay={0.4}>
               <div className="flex flex-col gap-1">
-                <div className="text-6xl leading-none font-bold opacity-20 -mb-2" style={{ color: 'var(--terracotta)', fontFamily: 'var(--font-display)' }} aria-hidden>&ldquo;</div>
+                <div className="text-6xl leading-none font-bold opacity-20 -mb-2" style={{ color: 'var(--terracotta)', fontFamily: 'var(--font-display)' }} aria-hidden="true">&ldquo;</div>
                 <blockquote className="pl-4 py-1 text-base italic" style={{ borderLeft: '3px solid var(--terracotta)', color: 'var(--stone)', fontFamily: 'var(--font-body)' }}>
                   &ldquo;She gives candies to children after every exam — and presents her research at international conferences. Both feel equally natural to her.&rdquo;
                 </blockquote>
