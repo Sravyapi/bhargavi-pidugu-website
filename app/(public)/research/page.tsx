@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/config'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { DownloadCVButton } from '@/components/about/DownloadCVButton'
@@ -7,11 +8,11 @@ import { ExternalLink } from 'lucide-react'
 export const metadata: Metadata = {
   title: 'Research & Academic Contributions',
   description: 'Conference presentations and peer-reviewed research by Dr. Bhargavi Pidugu — oral presenter at APAO Hong Kong 2026, contributor to POSN, and published author in paediatric ophthalmology.',
-  alternates: { canonical: 'https://drbhargavipidugu.com/research' },
+  alternates: { canonical: `${SITE_URL}/research` },
   openGraph: {
     title: 'Research & Academic Work | Dr. Bhargavi Pidugu',
     description: 'Oral presenter at APAO Hong Kong 2026. Publications and conference contributions in paediatric ophthalmology, strabismus, and neuro-ophthalmology.',
-    url: 'https://drbhargavipidugu.com/research',
+    url: `${SITE_URL}/research`,
   },
 }
 

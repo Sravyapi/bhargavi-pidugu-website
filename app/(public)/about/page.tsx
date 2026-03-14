@@ -5,15 +5,16 @@ import { CareerTimeline } from '@/components/about/CareerTimeline'
 import { SurgicalTable } from '@/components/about/SurgicalTable'
 import { DownloadCVButton } from '@/components/about/DownloadCVButton'
 import { MapPin, GraduationCap } from 'lucide-react'
+import { SITE_URL } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'About Dr. Bhargavi Pidugu',
   description: 'Fellowship-trained paediatric ophthalmologist at LV Prasad Eye Institute, Hyderabad — 1,500+ independent surgeries, 6+ years of experience, subspecialist in strabismus and neuro-ophthalmology.',
-  alternates: { canonical: 'https://drbhargavipidugu.com/about' },
+  alternates: { canonical: `${SITE_URL}/about` },
   openGraph: {
     title: 'About Dr. Bhargavi Pidugu | Paediatric Ophthalmologist, Hyderabad',
     description: 'Fellowship-trained at LV Prasad Eye Institute with 1,500+ independent surgeries. Subspecialist in paediatric cataract, strabismus surgery, and neuro-ophthalmology.',
-    url: 'https://drbhargavipidugu.com/about',
+    url: `${SITE_URL}/about`,
   },
 }
 

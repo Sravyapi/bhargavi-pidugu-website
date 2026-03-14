@@ -1,15 +1,16 @@
 import type { Metadata } from 'next'
 import { WaitlistPage } from '@/components/booking/WaitlistPage'
 import { BookingFlow } from '@/components/booking/BookingFlow'
+import { SITE_URL } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'Book a Consultation',
   description: "Book an online consultation with Dr. Bhargavi Pidugu — paediatric ophthalmologist at LV Prasad Eye Institute, Hyderabad. Get expert advice on strabismus, lazy eye, and children's vision.",
-  alternates: { canonical: 'https://drbhargavipidugu.com/book' },
+  alternates: { canonical: `${SITE_URL}/book` },
   openGraph: {
     title: 'Book a Consultation | Dr. Bhargavi Pidugu, Paediatric Ophthalmologist',
     description: "Book a 30-minute online consultation with Dr. Bhargavi Pidugu for paediatric eye care, strabismus, and children's vision concerns.",
-    url: 'https://drbhargavipidugu.com/book',
+    url: `${SITE_URL}/book`,
   },
 }
 

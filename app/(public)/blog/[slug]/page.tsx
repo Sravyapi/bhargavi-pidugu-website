@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation'
 import { Calendar, Clock, ArrowLeft } from 'lucide-react'
 import DOMPurify from 'isomorphic-dompurify'
 import { createClient } from '@/lib/supabase/server'
-import { READING } from '@/lib/constants'
+import { SITE_URL } from '@/lib/config'
+import { estimateReadingTime, formatDate } from '@/lib/utils'
 
 async function getPost(slug: string) {
   try {
@@ -50,7 +51,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const post = await getPost(slug)
   if (!post) return { title: 'Post Not Found' }
-  const canonical = `https://drbhargavipidugu.com/blog/${slug}`
+  const canonical = `${SITE_URL}/blog/${slug}`
   return {
     title: post.title,
     description: post.excerpt,
@@ -72,14 +73,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-function estimateReadTime(content: string): number {
-  const words = content.replace(/<[^>]*>/g, '').split(/\s+/).length
-  return Math.max(1, Math.ceil(words / READING.WORDS_PER_MINUTE))
-}
-
-function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
-}
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -97,15 +90,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     author: {
       '@type': 'Physician',
       name: 'Dr. Bhargavi Pidugu',
-      url: 'https://drbhargavipidugu.com/about',
+      url: `${SITE_URL}/about`,
     },
     publisher: {
       '@type': 'Person',
       name: 'Dr. Bhargavi Pidugu',
-      url: 'https://drbhargavipidugu.com',
+      url: SITE_URL,
     },
     datePublished: post.published_at,
-    url: `https://drbhargavipidugu.com/blog/${slug}`,
+    url: `${SITE_URL}/blog/${slug}`,
     ...(post.cover_image_url && { image: post.cover_image_url }),
     specialty: 'Ophthalmology',
   }
@@ -147,7 +140,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </span>
             <span className="flex items-center gap-1">
               <Clock size={12} />
-              {estimateReadTime(post.content)} min read
+              {estimateReadingTime(post.content)} min read
             </span>
           </div>
 

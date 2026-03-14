@@ -2,16 +2,16 @@ import type { Metadata } from 'next'
 import { ContactForm } from '@/components/contact/ContactForm'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
-import { CONTACT } from '@/lib/config'
+import { CONTACT, SITE_URL } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'Contact',
   description: 'Contact Dr. Bhargavi Pidugu, paediatric ophthalmologist at LV Prasad Eye Institute, Banjara Hills, Hyderabad. Send a message for appointments, second opinions, or general enquiries.',
-  alternates: { canonical: 'https://drbhargavipidugu.com/contact' },
+  alternates: { canonical: `${SITE_URL}/contact` },
   openGraph: {
     title: 'Contact Dr. Bhargavi Pidugu | Paediatric Ophthalmologist, Hyderabad',
     description: 'Get in touch with Dr. Bhargavi Pidugu at LV Prasad Eye Institute, Hyderabad for paediatric eye care enquiries and appointments.',
-    url: 'https://drbhargavipidugu.com/contact',
+    url: `${SITE_URL}/contact`,
   },
 }
 

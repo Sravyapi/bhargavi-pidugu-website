@@ -6,7 +6,8 @@ export function formatDate(date: string | Date, fmt = 'dd MMM yyyy'): string {
 }
 
 export function estimateReadingTime(body: string): number {
-  const wordCount = body.trim().split(/\s+/).length
+  const text = body.replace(/<[^>]*>/g, ' ').trim()
+  const wordCount = text.split(/\s+/).filter(Boolean).length
   return Math.max(1, Math.ceil(wordCount / READING.WORDS_PER_MINUTE))
 }
 

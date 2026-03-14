@@ -6,6 +6,7 @@ import { waitlistConfirmation } from '@/lib/email/templates/waitlist'
 import { requireAuth, UnauthorizedError, unauthorizedResponse } from '@/lib/auth-utils'
 import { checkRateLimit } from '@/lib/rate-limit'
 import { BOOKING_LIMITS } from '@/lib/constants'
+import { escapeHtml } from '@/lib/email/templates/base'
 
 export async function POST(request: NextRequest) {
   try {
@@ -53,7 +54,7 @@ export async function POST(request: NextRequest) {
         from: FROM_EMAIL,
         to: ADMIN_EMAIL,
         subject: `New waitlist signup: ${name} (${email})`,
-        html: `<p>New waitlist entry: <strong>${name}</strong> — ${email}</p>`,
+        html: `<p>New waitlist entry: <strong>${escapeHtml(name)}</strong> — ${escapeHtml(email)}</p>`,
       }),
     ])
 

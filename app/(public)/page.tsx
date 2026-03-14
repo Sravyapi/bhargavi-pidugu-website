@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/config'
 import { HeroSection } from '@/components/home/HeroSection'
 import { StatsStrip } from '@/components/home/StatsStrip'
 import { AboutTeaser } from '@/components/home/AboutTeaser'
@@ -8,8 +9,8 @@ import { FAQSection } from '@/components/home/FAQSection'
 import { CTABanner } from '@/components/home/CTABanner'
 
 export const metadata: Metadata = {
-  alternates: { canonical: 'https://drbhargavipidugu.com' },
-  openGraph: { url: 'https://drbhargavipidugu.com' },
+  alternates: { canonical: SITE_URL },
+  openGraph: { url: SITE_URL },
 }
 
 const faqSchema = {

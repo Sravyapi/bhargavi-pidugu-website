@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/config'
+import { estimateReadingTime, formatDate } from '@/lib/utils'
 import Link from 'next/link'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
@@ -9,11 +11,11 @@ import { createClient } from '@/lib/supabase/server'
 export const metadata: Metadata = {
   title: 'Blog — Children\'s Eye Health',
   description: "Parent-friendly articles on paediatric ophthalmology by Dr. Bhargavi Pidugu — squint, lazy eye, cataracts, myopia, and more. Written for families in Hyderabad and across India.",
-  alternates: { canonical: 'https://drbhargavipidugu.com/blog' },
+  alternates: { canonical: `${SITE_URL}/blog` },
   openGraph: {
     title: "Children's Eye Health Blog | Dr. Bhargavi Pidugu",
     description: "Expert articles on paediatric eye conditions — strabismus, amblyopia, cataracts, screen time, and vision development — written for Indian parents.",
-    url: 'https://drbhargavipidugu.com/blog',
+    url: `${SITE_URL}/blog`,
   },
 }
 
@@ -32,14 +34,6 @@ async function getBlogPosts() {
   }
 }
 
-function estimateReadTime(content: string): number {
-  const words = content.replace(/<[^>]*>/g, '').split(/\s+/).length
-  return Math.max(1, Math.ceil(words / 200))
-}
-
-function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
-}
 
 export default async function BlogPage() {
   const posts = await getBlogPosts()
@@ -112,7 +106,7 @@ export default async function BlogPage() {
                         </span>
                         <span className="flex items-center gap-1">
                           <Clock size={12} />
-                          {estimateReadTime(post.content)} min read
+                          {estimateReadingTime(post.content)} min read
                         </span>
                       </div>
 

@@ -132,10 +132,22 @@ export function FAQSection() {
   return (
     <section className="py-16 lg:py-32" style={{ background: 'var(--cream)' }}>
       <div className="container-site">
+
+        {/* Header — stacked on mobile, beside on desktop */}
+        <AnimatedSection direction="left" className="mb-8 lg:mb-0">
+          <div className="lg:hidden">
+            <p className="label-ui mb-2">FAQ</p>
+            <h2 className="heading-section mb-1">
+              Questions we hear{' '}
+              <em className="text-gradient not-italic">every day</em>
+            </h2>
+          </div>
+        </AnimatedSection>
+
         <div className="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-20 items-start">
 
-          {/* LEFT: sticky header */}
-          <AnimatedSection direction="left" className="lg:sticky lg:top-28">
+          {/* LEFT: sticky header — desktop only */}
+          <AnimatedSection direction="left" className="hidden lg:block lg:sticky lg:top-28">
             <p className="label-ui mb-3">FAQ</p>
             <h2 className="heading-section mb-6">
               Questions we hear{' '}
@@ -144,7 +156,6 @@ export function FAQSection() {
             <p className="text-[var(--stone)] leading-relaxed mb-8" style={{ fontFamily: 'var(--font-ui)' }}>
               Straight answers — no jargon, no guesswork — on everything from first visits to surgery.
             </p>
-            {/* Decorative element */}
             <div className="flex items-center gap-3">
               <div className="h-px flex-1" style={{ background: 'var(--border)' }} />
               <div className="w-2 h-2 rounded-full" style={{ background: 'var(--terracotta)' }} />
@@ -152,7 +163,7 @@ export function FAQSection() {
             </div>
           </AnimatedSection>
 
-          {/* RIGHT: accordion */}
+          {/* Accordion */}
           <div className="flex flex-col gap-3">
             {faqs.map((faq, i) => (
               <FAQItem key={i} faq={faq} index={i} isOpen={open === i} onToggle={handleToggle} />

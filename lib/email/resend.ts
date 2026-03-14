@@ -24,4 +24,4 @@ export function getResend(): Resend {
 
 export const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'noreply@drbhargavipidugu.com'
 export const ADMIN_EMAIL = process.env.ADMIN_NOTIFICATION_EMAIL || 'dr.bhargavipidugu@gmail.com'
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://drbhargavipidugu.com'
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bhargavipidugu.vercel.app'

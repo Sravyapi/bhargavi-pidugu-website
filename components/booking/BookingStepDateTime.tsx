@@ -31,6 +31,15 @@ export function BookingStepDateTime({
     [availableSlots]
   )
 
+  const dateOptions = useMemo(
+    () => Array.from({ length: 14 }, (_, i) => {
+      const d = addDays(startOfDay(new Date()), i + 1)
+      return { d, dateStr: format(d, 'yyyy-MM-dd'), isWeekend: d.getDay() === 0 }
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [/* recompute once per day — stable across re-renders */]
+  )
+
   return (
     <div>
       <h2 className="heading-section mb-2">Pick a date &amp; time</h2>
@@ -42,30 +51,25 @@ export function BookingStepDateTime({
       <div className="mb-6">
         <label className="block text-xs font-medium mb-2" style={{ fontFamily: 'var(--font-ui)', color: 'var(--charcoal)' }}>Select Date</label>
         <div className="flex gap-2 flex-wrap">
-          {Array.from({ length: 14 }, (_, i) => {
-            const d = addDays(startOfDay(new Date()), i + 1)
-            const dateStr = format(d, 'yyyy-MM-dd')
-            const isWeekend = d.getDay() === 0
-            return (
-              <button
-                key={dateStr}
-                disabled={isWeekend}
-                onClick={() => onDateSelect(dateStr)}
-                className="px-3 py-2 rounded-lg text-xs transition-all"
-                style={{
-                  fontFamily: 'var(--font-ui)',
-                  background: selectedDate === dateStr ? 'var(--terracotta)' : isWeekend ? 'var(--surface)' : 'white',
-                  color: selectedDate === dateStr ? 'white' : isWeekend ? 'var(--stone-light)' : 'var(--charcoal)',
-                  border: `1px solid ${selectedDate === dateStr ? 'var(--terracotta)' : 'var(--border)'}`,
-                  cursor: isWeekend ? 'not-allowed' : 'pointer',
-                  opacity: isWeekend ? 0.5 : 1,
-                }}
-              >
-                <div>{format(d, 'EEE')}</div>
-                <div className="font-semibold">{format(d, 'd MMM')}</div>
-              </button>
-            )
-          })}
+          {dateOptions.map(({ d, dateStr, isWeekend }) => (
+            <button
+              key={dateStr}
+              disabled={isWeekend}
+              onClick={() => onDateSelect(dateStr)}
+              className="px-3 py-2 rounded-lg text-xs transition-all"
+              style={{
+                fontFamily: 'var(--font-ui)',
+                background: selectedDate === dateStr ? 'var(--terracotta)' : isWeekend ? 'var(--surface)' : 'white',
+                color: selectedDate === dateStr ? 'white' : isWeekend ? 'var(--stone-light)' : 'var(--charcoal)',
+                border: `1px solid ${selectedDate === dateStr ? 'var(--terracotta)' : 'var(--border)'}`,
+                cursor: isWeekend ? 'not-allowed' : 'pointer',
+                opacity: isWeekend ? 0.5 : 1,
+              }}
+            >
+              <div>{format(d, 'EEE')}</div>
+              <div className="font-semibold">{format(d, 'd MMM')}</div>
+            </button>
+          ))}
         </div>
       </div>
 

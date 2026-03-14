@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Calendar, Eye } from 'lucide-react'
+import { ArrowRight, Calendar } from 'lucide-react'
 import { AnimatedSection } from '@/components/ui/AnimatedSection'
 
 export function CTABanner() {
@@ -14,91 +14,41 @@ export function CTABanner() {
         backgroundSize: '300% 300%',
       }}
     >
-
-      {/* Wave divider at top */}
+      {/* Wave divider */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-none pointer-events-none" style={{ height: '64px' }}>
         <svg viewBox="0 0 1440 64" preserveAspectRatio="none" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <path d="M0,0 C360,64 1080,0 1440,64 L1440,0 L0,0 Z" fill="var(--surface)" />
         </svg>
       </div>
 
-      {/* Eye watermark — desktop only */}
-      <div className="hidden md:block absolute top-8 right-8 pointer-events-none opacity-[0.05] text-white">
-        <Eye size={120} />
-      </div>
-
-      {/* Grain overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.04]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-        }}
+      {/* Decorative shapes — desktop only */}
+      <div className="hidden md:block absolute inset-0 pointer-events-none opacity-[0.04]"
+        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }}
       />
-
-      {/* Floating blobs — desktop only */}
-      <div
-        className="hidden md:block absolute -top-20 -left-20 w-72 h-72 blob pointer-events-none opacity-20"
-        style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)' }}
-      />
-      <div
-        className="hidden md:block absolute -bottom-20 -right-20 w-96 h-96 blob pointer-events-none opacity-15"
-        style={{
-          background: 'radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%)',
-          animationDelay: '-5s',
-        }}
-      />
-
-      {/* Floating geometric shapes — desktop only */}
-      <motion.div
-        className="hidden md:block absolute top-12 right-[15%] w-16 h-16 rounded-full border-2 border-white/20"
-        animate={{ y: [0, -16, 0], rotate: [0, 180, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="hidden md:block absolute bottom-16 left-[10%] w-10 h-10 border-2 border-white/15 rotate-45"
-        animate={{ y: [0, 12, 0], rotate: [45, 90, 45] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-      />
-      <motion.div
-        className="hidden md:block absolute top-1/2 left-[5%] w-6 h-6 rounded-full bg-white/10"
-        animate={{ y: [0, -10, 0], x: [0, 8, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-      />
+      <motion.div className="hidden md:block absolute top-12 right-[15%] w-16 h-16 rounded-full border-2 border-white/20" animate={{ y: [0, -16, 0], rotate: [0, 180, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }} />
+      <motion.div className="hidden md:block absolute bottom-16 left-[10%] w-10 h-10 border-2 border-white/15 rotate-45" animate={{ y: [0, 12, 0], rotate: [45, 90, 45] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 2 }} />
 
       {/* Content */}
       <div className="container-site relative z-10 text-center">
 
         <AnimatedSection direction="none" delay={0}>
-          <p
-            className="text-white/60 text-xs uppercase tracking-[0.2em] font-semibold mb-5"
-            style={{ fontFamily: 'var(--font-ui)' }}
-          >
+          <p className="text-white/60 text-xs uppercase tracking-[0.2em] font-semibold mb-5" style={{ fontFamily: 'var(--font-ui)' }}>
             Act Early, See Better
           </p>
         </AnimatedSection>
 
         <AnimatedSection direction="up" delay={0.1}>
-          <h2 className="heading-display text-white mb-6 max-w-3xl mx-auto">
+          <h2 className="heading-display text-white mb-5 max-w-3xl mx-auto" style={{ fontSize: 'clamp(1.75rem, 6vw, 3.5rem)' }}>
             Don&apos;t let a treatable{' '}
-            <span
-              style={{
-                textDecoration: 'underline',
-                textDecorationColor: 'rgba(255,255,255,0.4)',
-                textUnderlineOffset: '6px',
-              }}
-            >
+            <span style={{ textDecoration: 'underline', textDecorationColor: 'rgba(255,255,255,0.4)', textUnderlineOffset: '6px' }}>
               condition wait.
             </span>
           </h2>
         </AnimatedSection>
 
         <AnimatedSection direction="up" delay={0.2}>
-          <p
-            className="text-white/75 text-lg max-w-xl mx-auto mb-10 leading-relaxed"
-            style={{ fontFamily: 'var(--font-ui)' }}
-          >
-            Most paediatric eye conditions — squints, lazy eye, cataracts — are
-            fully treatable when caught early. The window matters.
+          <p className="text-white/75 text-base lg:text-lg max-w-md mx-auto mb-8 leading-relaxed" style={{ fontFamily: 'var(--font-ui)' }}>
+            Most paediatric eye conditions are fully treatable when caught early. The window matters.
           </p>
         </AnimatedSection>
 
@@ -106,13 +56,8 @@ export function CTABanner() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
             <Link
               href="/book"
-              className="inline-flex items-center gap-2.5 px-7 py-4 rounded-xl font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5 group"
-              style={{
-                background: 'white',
-                color: 'var(--terracotta-dark)',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
-                fontFamily: 'var(--font-ui)',
-              }}
+              className="inline-flex items-center gap-2.5 px-7 py-4 rounded-xl font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5 group w-full sm:w-auto justify-center"
+              style={{ background: 'white', color: 'var(--terracotta-dark)', boxShadow: '0 8px 32px rgba(0,0,0,0.2)', fontFamily: 'var(--font-ui)' }}
             >
               <Calendar size={16} />
               Book a Consultation
@@ -120,7 +65,7 @@ export function CTABanner() {
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl font-semibold text-sm border border-white/30 text-white transition-all duration-200 hover:bg-white/10 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl font-semibold text-sm border border-white/30 text-white transition-all duration-200 hover:bg-white/10 hover:-translate-y-0.5 w-full sm:w-auto justify-center"
               style={{ fontFamily: 'var(--font-ui)' }}
             >
               Get in Touch →
@@ -128,19 +73,15 @@ export function CTABanner() {
           </div>
         </AnimatedSection>
 
-        {/* Trust markers */}
-        <AnimatedSection delay={0.45} className="mt-14">
-          <div className="flex flex-wrap justify-center gap-3 lg:gap-8">
+        {/* Trust markers — desktop only */}
+        <AnimatedSection delay={0.45} className="hidden md:block mt-14">
+          <div className="flex flex-wrap justify-center gap-8">
             {[
               'Fellowship-trained at LV Prasad Eye Institute',
               'Online consultations · post-June 2026',
               '1,500+ independent surgeries',
             ].map((t, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-2 text-white/60 text-xs uppercase tracking-widest"
-                style={{ fontFamily: 'var(--font-ui)' }}
-              >
+              <div key={i} className="flex items-center gap-2 text-white/60 text-xs uppercase tracking-widest" style={{ fontFamily: 'var(--font-ui)' }}>
                 <span style={{ color: 'rgba(255,255,255,0.4)' }}>✦</span>
                 {t}
               </div>

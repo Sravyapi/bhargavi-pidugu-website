@@ -1,7 +1,8 @@
 import type { MetadataRoute } from 'next'
 import { createClient } from '@supabase/supabase-js'
+import { SITE_URL } from '@/lib/config'
 
-const BASE_URL = 'https://drbhargavipidugu.com'
+const BASE_URL = SITE_URL
 
 const STATIC_ROUTES: MetadataRoute.Sitemap = [
   { url: BASE_URL, lastModified: new Date(), changeFrequency: 'monthly', priority: 1.0 },

@@ -27,24 +27,33 @@ export async function POST(request: NextRequest) {
 
     const supabase = await createAdminClient()
 
-    // Check bookings enabled
-    const { data: enabledRow } = await supabase
-      .from('site_content')
-      .select('value')
-      .eq('key', 'bookings_enabled')
-      .single()
+    // Batch both site_content reads + slot conflict check in parallel
+    const [contentRows, conflictingApt, rateLimitExceeded] = await Promise.all([
+      supabase
+        .from('site_content')
+        .select('key, value')
+        .in('key', ['bookings_enabled', 'appointment_duration_minutes']),
+      supabase
+        .from('appointments')
+        .select('id')
+        .eq('slot_datetime', slotDatetime)
+        .neq('status', 'cancelled')
+        .maybeSingle(),
+      checkRateLimit(supabase, {
+        table: 'appointments',
+        emailColumn: 'contact_email',
+        email: result.data.contact_email,
+        maxPerHour: BOOKING_LIMITS.MAX_BOOKING_ATTEMPTS_PER_HOUR,
+      }),
+    ])
 
-    if (enabledRow?.value !== 'true') {
+    const content: Record<string, string> = {}
+    contentRows.data?.forEach((r) => { content[r.key] = r.value })
+
+    if (content.bookings_enabled !== 'true') {
       return NextResponse.json({ success: false, error: 'Bookings are currently closed.' }, { status: 400 })
     }
 
-    // Rate limit: max 5 booking attempts from same email per hour
-    const rateLimitExceeded = await checkRateLimit(supabase, {
-      table: 'appointments',
-      emailColumn: 'contact_email',
-      email: result.data.contact_email,
-      maxPerHour: BOOKING_LIMITS.MAX_BOOKING_ATTEMPTS_PER_HOUR,
-    })
     if (rateLimitExceeded) {
       return NextResponse.json(
         { success: false, error: 'Too many booking attempts. Please try again later.' },
@@ -52,28 +61,14 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Race condition check — slot still available?
-    const { data: conflictingApt } = await supabase
-      .from('appointments')
-      .select('id')
-      .eq('slot_datetime', slotDatetime)
-      .neq('status', 'cancelled')
-      .maybeSingle()
-
-    if (conflictingApt) {
+    if (conflictingApt.data) {
       return NextResponse.json(
         { success: false, error: 'This slot is no longer available. Please choose another.' },
         { status: 409 }
       )
     }
 
-    // Get duration from site_content (fall back to constant default)
-    const { data: durationRow } = await supabase
-      .from('site_content')
-      .select('value')
-      .eq('key', 'appointment_duration_minutes')
-      .single()
-    const durationMinutes = parseInt(durationRow?.value ?? '') || APPOINTMENT_DEFAULTS.DURATION_MINUTES
+    const durationMinutes = parseInt(content.appointment_duration_minutes ?? '') || APPOINTMENT_DEFAULTS.DURATION_MINUTES
 
     // Insert appointment
     const { data: appointment, error: insertError } = await supabase

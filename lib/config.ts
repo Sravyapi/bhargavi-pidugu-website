@@ -11,6 +11,8 @@ const envSchema = z.object({
   RESEND_FROM_EMAIL: z.string().email().optional(),
   ADMIN_NOTIFICATION_EMAIL: z.string().email().optional(),
   NEXT_PUBLIC_SITE_URL: z.string().url().optional(),
+  NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().optional(),
+  NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: z.string().optional(),
   NODE_ENV: z.enum(['development', 'production', 'test']).optional(),
 })
 
@@ -32,7 +34,7 @@ function getConfig() {
 
 export const config = getConfig()
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://drbhargavipidugu.com'
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://bhargavipidugu.vercel.app'
 
 
 export const CONTACT = {
@@ -51,7 +53,4 @@ export const CONTACT = {
 export const DOCTOR = {
   name: 'Dr. Bhargavi Pidugu',
   credentials: 'MS (Ophthalmology) · MBBS',
-  shortCredentials: 'MS · Ophthalmology',
-  speciality: 'Paediatric Ophthalmologist',
-  institute: 'LV Prasad Eye Institute, Hyderabad',
 } as const

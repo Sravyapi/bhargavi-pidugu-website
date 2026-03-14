@@ -1,5 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
+
+// Simple in-memory IP rate limit: max 60 slot requests per IP per hour
+const slotsRateMap = new Map<string, number[]>()
+function isSlotsRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const cutoff = now - 60 * 60 * 1000
+  const hits = (slotsRateMap.get(ip) ?? []).filter(t => t > cutoff)
+  if (hits.length >= 60) return true
+  slotsRateMap.set(ip, [...hits, now])
+  return false
+}
 import { generateSlots } from '@/lib/slots'
 import { getFreeBusy, isSlotBusy } from '@/lib/google/freebusy'
 import { getAndUpdateAccessToken } from '@/lib/google/token-helper'
@@ -9,6 +20,11 @@ import { fromZonedTime } from 'date-fns-tz'
 import { IST_TIMEZONE, APPOINTMENT_DEFAULTS } from '@/lib/constants'
 
 export async function GET(request: NextRequest) {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown'
+  if (isSlotsRateLimited(ip)) {
+    return NextResponse.json({ success: false, error: 'Too many requests.' }, { status: 429 })
+  }
+
   try {
     const { searchParams } = new URL(request.url)
     const date = searchParams.get('date')

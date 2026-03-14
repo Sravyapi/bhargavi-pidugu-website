@@ -34,7 +34,7 @@ export function emailBase(content: string, subject: string): string {
             <td style="padding:24px 0 0;text-align:center;">
               <p style="margin:0;color:#A89E98;font-size:12px;">
                 © Dr. Bhargavi Pidugu ·
-                <a href="https://drbhargavipidugu.com" style="color:#C4754A;text-decoration:none;">drbhargavipidugu.com</a>
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://bhargavipidugu.vercel.app'}" style="color:#C4754A;text-decoration:none;">bhargavipidugu.vercel.app</a>
               </p>
             </td>
           </tr>
